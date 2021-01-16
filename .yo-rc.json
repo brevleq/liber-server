@@ -1,0 +1,37 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "org.liber"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "liber",
+    "packageName": "org.liber",
+    "packageFolder": "org/liber",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "OGIwZDEzZTNmNDE3MWU0ZTZlYzllNDkwZGRiZmUzMTJmZmEwYzhkNWI2Zjg1NmYwOGE0ZWJjZmJmMDFjNGZhY2RlNmJmYzA1Mjg1YzhjOWE0NzY2OTMyYTYxYjljYjA5ODBiNDMxNmZkMjJjOTc4ZTA0Mjg3YzMwMTFkYTk4ZWQ=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "creationTimestamp": 1610819283659,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": []
+  }
+}

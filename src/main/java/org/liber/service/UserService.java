@@ -1,28 +1,25 @@
 package org.liber.service;
 
+import io.github.jhipster.security.RandomUtil;
 import org.liber.config.Constants;
 import org.liber.domain.Authority;
 import org.liber.domain.User;
 import org.liber.repository.AuthorityRepository;
 import org.liber.repository.UserRepository;
-import org.liber.security.AuthoritiesConstants;
 import org.liber.security.SecurityUtils;
 import org.liber.service.dto.UserDTO;
-
-import io.github.jhipster.security.RandomUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,6 +29,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserService {
 
+    private static final String DEFAULT_PASSWORD = "liberliber";
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
@@ -44,86 +42,6 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
-    }
-
-    public Optional<User> activateRegistration(String key) {
-        log.debug("Activating user for activation key {}", key);
-        return userRepository.findOneByActivationKey(key)
-            .map(user -> {
-                // activate given user for the registration key.
-                user.setActivated(true);
-                user.setActivationKey(null);
-                log.debug("Activated user: {}", user);
-                return user;
-            });
-    }
-
-    public Optional<User> completePasswordReset(String newPassword, String key) {
-        log.debug("Reset user password for reset key {}", key);
-        return userRepository.findOneByResetKey(key)
-            .filter(user -> user.getResetDate().isAfter(Instant.now().minusSeconds(86400)))
-            .map(user -> {
-                user.setPassword(passwordEncoder.encode(newPassword));
-                user.setResetKey(null);
-                user.setResetDate(null);
-                return user;
-            });
-    }
-
-    public Optional<User> requestPasswordReset(String mail) {
-        return userRepository.findOneByEmailIgnoreCase(mail)
-            .filter(User::getActivated)
-            .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(Instant.now());
-                return user;
-            });
-    }
-
-    public User registerUser(UserDTO userDTO, String password) {
-        userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
-            boolean removed = removeNonActivatedUser(existingUser);
-            if (!removed) {
-                throw new UsernameAlreadyUsedException();
-            }
-        });
-        userRepository.findOneByEmailIgnoreCase(userDTO.getEmail()).ifPresent(existingUser -> {
-            boolean removed = removeNonActivatedUser(existingUser);
-            if (!removed) {
-                throw new EmailAlreadyUsedException();
-            }
-        });
-        User newUser = new User();
-        String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setLogin(userDTO.getLogin().toLowerCase());
-        // new user gets initially a generated password
-        newUser.setPassword(encryptedPassword);
-        newUser.setFirstName(userDTO.getFirstName());
-        newUser.setLastName(userDTO.getLastName());
-        if (userDTO.getEmail() != null) {
-            newUser.setEmail(userDTO.getEmail().toLowerCase());
-        }
-        newUser.setImageUrl(userDTO.getImageUrl());
-        newUser.setLangKey(userDTO.getLangKey());
-        // new user is not active
-        newUser.setActivated(false);
-        // new user gets registration key
-        newUser.setActivationKey(RandomUtil.generateActivationKey());
-        Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
-        newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
-        log.debug("Created Information for User: {}", newUser);
-        return newUser;
-    }
-
-    private boolean removeNonActivatedUser(User existingUser) {
-        if (existingUser.getActivated()) {
-             return false;
-        }
-        userRepository.delete(existingUser);
-        userRepository.flush();
-        return true;
     }
 
     public User createUser(UserDTO userDTO) {
@@ -140,7 +58,7 @@ public class UserService {
         } else {
             user.setLangKey(userDTO.getLangKey());
         }
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+        String encryptedPassword = passwordEncoder.encode(DEFAULT_PASSWORD);
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
@@ -170,7 +88,6 @@ public class UserService {
             .filter(Optional::isPresent)
             .map(Optional::get)
             .map(user -> {
-                user.setLogin(userDTO.getLogin().toLowerCase());
                 user.setFirstName(userDTO.getFirstName());
                 user.setLastName(userDTO.getLastName());
                 if (userDTO.getEmail() != null) {
@@ -255,27 +172,39 @@ public class UserService {
     }
 
     /**
-     * Not activated users should be automatically deleted after 3 days.
-     * <p>
-     * This is scheduled to get fired everyday, at 01:00 (am).
-     */
-    @Scheduled(cron = "0 0 1 * * ?")
-    public void removeNotActivatedUsers() {
-        userRepository
-            .findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS))
-            .forEach(user -> {
-                log.debug("Deleting not activated user {}", user.getLogin());
-                userRepository.delete(user);
-            });
-    }
-
-    /**
      * Gets a list of all the authorities.
+     *
      * @return a list of all the authorities.
      */
     @Transactional(readOnly = true)
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void activate(Long id) {
+        userRepository.findById(id).map(u -> {
+            u.setActivated(true);
+            return userRepository.save(u);
+        });
+    }
+
+    @Transactional
+    public void deactivate(Long id) {
+        userRepository.findById(id).map(u -> {
+            u.setActivated(false);
+            return userRepository.save(u);
+        });
+    }
+
+    @Transactional
+    public void resetPassword(Long id) {
+        userRepository.findById(id)
+            .map(user -> {
+                String encryptedPassword = passwordEncoder.encode(DEFAULT_PASSWORD);
+                user.setPassword(encryptedPassword);
+                return userRepository.save(user);
+            });
     }
 
 }

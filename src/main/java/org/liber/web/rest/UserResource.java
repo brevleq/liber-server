@@ -197,4 +197,46 @@ public class UserResource {
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "A user is deleted with identifier " + login, login)).build();
     }
+
+    /**
+     * {@code PUT /users/activate/:id} : Activate an existing User.
+     *
+     * @param id the user's id to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with empty body.
+     */
+    @PutMapping("/users/activate/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<Void> activateUser(@Valid @PathVariable Long id) {
+        log.debug("REST request to activate User : {}", id);
+        userService.activate(id);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * {@code PUT /users/deactivate/:id} : Deactivate an existing User.
+     *
+     * @param id the user's id to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with empty body.
+     */
+    @PutMapping("/users/deactivate/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<Void> deactivateUser(@Valid @PathVariable Long id) {
+        log.debug("REST request to deactivate User : {}", id);
+        userService.deactivate(id);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * {@code PUT /users/reset-password/:id} : Reset user's password to default value.
+     *
+     * @param id the user's id to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with empty body.
+     */
+    @PutMapping("/users/reset-password/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<Void> resetPassword(@Valid @PathVariable Long id) {
+        log.debug("REST request to deactivate User : {}", id);
+        userService.resetPassword(id);
+        return ResponseEntity.ok().build();
+    }
 }

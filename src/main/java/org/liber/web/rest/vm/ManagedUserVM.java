@@ -35,6 +35,7 @@ public class ManagedUserVM extends UserDTO {
     private String password;
 
     public ManagedUserVM() {
+        super();
         // Empty constructor needed for Jackson.
     }
 

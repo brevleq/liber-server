@@ -41,6 +41,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.liber.config.Constants.DEFAULT_PASSWORD;
+
 /**
  * Service class for managing users.
  */
@@ -48,7 +50,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserService {
 
-    private static final String DEFAULT_PASSWORD = "liberliber";
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;

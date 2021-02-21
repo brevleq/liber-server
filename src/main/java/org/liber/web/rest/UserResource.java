@@ -197,7 +197,7 @@ public class UserResource {
      */
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
-        log.debug("REST request to get User : {}", login);
+        log.debug("REST request to get User: {}", login);
         return ResponseUtil.wrapOrNotFound(
             userService.getUserWithAuthoritiesByLogin(login)
                 .map(UserDTO::new));
@@ -226,7 +226,7 @@ public class UserResource {
     @PutMapping("/users/activate/{id}")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> activateUser(@Valid @PathVariable Long id) {
-        log.debug("REST request to activate User : {}", id);
+        log.debug("REST request to activate User: {}", id);
         userService.activate(id);
         return ResponseEntity.ok().build();
     }
@@ -240,7 +240,7 @@ public class UserResource {
     @PutMapping("/users/deactivate/{id}")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deactivateUser(@Valid @PathVariable Long id) {
-        log.debug("REST request to deactivate User : {}", id);
+        log.debug("REST request to deactivate User: {}", id);
         userService.deactivate(id);
         return ResponseEntity.ok().build();
     }
@@ -254,7 +254,7 @@ public class UserResource {
     @PutMapping("/users/reset-password/{id}")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> resetPassword(@Valid @PathVariable Long id) {
-        log.debug("REST request to deactivate User : {}", id);
+        log.debug("REST request to reset password: {}", id);
         userService.resetPassword(id);
         return ResponseEntity.ok().build();
     }

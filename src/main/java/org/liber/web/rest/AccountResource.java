@@ -19,6 +19,9 @@
 
 package org.liber.web.rest;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.liber.converters.UserConverter;
 import org.liber.domain.User;
 import org.liber.repository.UserRepository;
 import org.liber.security.SecurityUtils;
@@ -43,8 +46,10 @@ import java.util.*;
 /**
  * REST controller for managing the current user's account.
  */
+@Slf4j
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class AccountResource {
 
     private static class AccountResourceException extends RuntimeException {
@@ -53,20 +58,9 @@ public class AccountResource {
         }
     }
 
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
-
     private final UserRepository userRepository;
-
     private final UserService userService;
-
-    private final MailService mailService;
-
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
-
-        this.userRepository = userRepository;
-        this.userService = userService;
-        this.mailService = mailService;
-    }
+    private final UserConverter userConverter;
 
     /**
      * {@code GET  /authenticate} : check if the user is authenticated, and return its login.
@@ -89,7 +83,7 @@ public class AccountResource {
     @GetMapping("/account")
     public UserDTO getAccount() {
         return userService.getUserWithAuthorities()
-            .map(UserDTO::new)
+            .map(userConverter::convert)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }
 

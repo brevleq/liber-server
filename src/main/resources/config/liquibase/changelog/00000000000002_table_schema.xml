@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="00000000000002" author="brevleq">
+        <createTable tableName="patient">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reception_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sex" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_place_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mother_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="father_name" type="varchar(100)"/>
+            <column name="marital_status_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scholarity_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="profession_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="working" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_street" type="varchar(100)"/>
+            <column name="address_neighborhood" type="varchar(80)"/>
+            <column name="address_number" type="varchar(6)"/>
+            <column name="address_complement" type="varchar(30)"/>
+            <column name="address_zip" type="varchar(15)"/>
+            <column name="address_city_id" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="document_type">
+            <column name="id" value="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" value="name">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="patient_document">
+            <column name="patient_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="document_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="value" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="city">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="state">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="marital_status">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="housing_condition">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="scholarity">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="kinship">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="profession">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="justice_problem">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="health_problem">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="drug">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="controlled_medication">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="companion">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_street" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_neighborhood" type="varchar(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_number" type="varchar(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_complement" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_zip" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_city_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kinship_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="anamnesis">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="overdose" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="psychotic_break" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="drug_abuse_seizure" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="favorite_drug_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="drug_use_frequence" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="housing_condition_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity_people_in_house" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="family_income" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="in_government_program" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lives_with_kinship_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="anamnesis_justice_problem">
+            <column name="anamnesis_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="justice_problem_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="anamnesis_controlled_medication">
+            <column name="anamnesis_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="controlled_medication_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="anamnesis_health_problem">
+            <column name="anamnesis_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="healthy_problem_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="anamnesis_drug_used">
+            <column name="anamnesis_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="drug_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="anamnesis_other_institution">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="anamnesis_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="period_in_days" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+<!--        todo fereign keys-->
+<!--        todo sequences-->
+<!--        todo indexes-->
+    </changeSet>
+
+</databaseChangeLog>

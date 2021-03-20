@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+  ~
+  ~ This file is part of Liber Server.
+  ~
+  ~ Liber Server is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or any later
+  ~ version.
+  ~
+  ~ Liber Server is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
+  -->
+
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
-                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet id="00000000000002" author="brevleq">
+    <changeSet id="00000000000002-1" author="brevleq">
         <createTable tableName="patient">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(100)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="reception_date" type="timestamp">
                 <constraints nullable="false"/>
@@ -51,11 +68,11 @@
         </createTable>
 
         <createTable tableName="document_type">
-            <column name="id" value="bigint">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" value="name">
-                <constraints nullable="false"/>
+            <column name="name" type="varchar(40)">
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -87,20 +104,33 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="country_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="abbreviation" type="char(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="country">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
 
         <createTable tableName="marital_status">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lang" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -109,10 +139,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lang" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -121,10 +148,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lang" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -133,10 +157,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lang" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -145,10 +166,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lang" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -157,10 +175,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lang" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -169,10 +184,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lang" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -181,10 +193,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="lang" type="char(2)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -193,7 +202,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
 
@@ -202,7 +211,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(100)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="address_street" type="varchar(100)">
                 <constraints nullable="false"/>
@@ -294,7 +303,7 @@
             <column name="anamnesis_id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="healthy_problem_id" type="bigint">
+            <column name="health_problem_id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>
@@ -308,24 +317,205 @@
             </column>
         </createTable>
 
-        <createTable tableName="anamnesis_other_institution">
+        <createTable tableName="other_institution">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="anamnesis_other_institution">
             <column name="anamnesis_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="varchar(100)">
+            <column name="other_institution_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="period_in_days" type="integer">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
 
-<!--        todo fereign keys-->
-<!--        todo sequences-->
-<!--        todo indexes-->
+    <changeSet id="00000000000002-2" author="brevleq">
+        <addForeignKeyConstraint baseTableName="patient_document"
+                                 baseColumnNames="patient_id"
+                                 constraintName="patient_document_patient_FK"
+                                 referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="patient_document"
+                                 baseColumnNames="document_id"
+                                 constraintName="patient_document_type_FK"
+                                 referencedTableName="document_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="patient"
+                                 baseColumnNames="birth_place_id"
+                                 constraintName="patient_birth_place_FK"
+                                 referencedTableName="city"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="patient"
+                                 baseColumnNames="marital_status_id"
+                                 constraintName="patient_marital_status_FK"
+                                 referencedTableName="marital_status"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="patient"
+                                 baseColumnNames="scholarity_id"
+                                 constraintName="patient_scholarity_FK"
+                                 referencedTableName="scholarity"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="patient"
+                                 baseColumnNames="profession_id"
+                                 constraintName="patient_profession_FK"
+                                 referencedTableName="profession"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="patient"
+                                 baseColumnNames="address_city_id"
+                                 constraintName="patient_address_city_FK"
+                                 referencedTableName="city"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="city"
+                                 baseColumnNames="state_id"
+                                 constraintName="city_state_FK"
+                                 referencedTableName="state"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="state"
+                                 baseColumnNames="country_id"
+                                 constraintName="state_country_FK"
+                                 referencedTableName="country"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="companion"
+                                 baseColumnNames="address_city_id"
+                                 constraintName="companion_address_city_FK"
+                                 referencedTableName="city"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="companion"
+                                 baseColumnNames="patient_id"
+                                 constraintName="companion_patient_FK"
+                                 referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="companion"
+                                 baseColumnNames="kinship_id"
+                                 constraintName="companion_kinship_FK"
+                                 referencedTableName="kinship"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis"
+                                 baseColumnNames="patient_id"
+                                 constraintName="anamnesis_patient_FK"
+                                 referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis"
+                                 baseColumnNames="favorite_drug_id"
+                                 constraintName="anamnesis_favorite_drug_FK"
+                                 referencedTableName="drug"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis"
+                                 baseColumnNames="housing_condition_id"
+                                 constraintName="anamnesis_housing_condition_FK"
+                                 referencedTableName="housing_condition"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis"
+                                 baseColumnNames="lives_with_kinship_id"
+                                 constraintName="anamnesis_lives_with_kinship_FK"
+                                 referencedTableName="kinship"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_justice_problem"
+                                 baseColumnNames="anamnesis_id"
+                                 constraintName="anamnesis_justice_problem_anamnesis_FK"
+                                 referencedTableName="anamnesis"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_justice_problem"
+                                 baseColumnNames="justice_problem_id"
+                                 constraintName="anamnesis_justice_problem_justice_problem_FK"
+                                 referencedTableName="justice_problem"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_controlled_medication"
+                                 baseColumnNames="anamnesis_id"
+                                 constraintName="anamnesis_controlled_medication_anamnesis_FK"
+                                 referencedTableName="anamnesis"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_controlled_medication"
+                                 baseColumnNames="controlled_medication_id"
+                                 constraintName="anamnesis_controlled_medication_controlled_medication_FK"
+                                 referencedTableName="controlled_medication"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_health_problem"
+                                 baseColumnNames="anamnesis_id"
+                                 constraintName="anamnesis_health_problem_anamnesis_FK"
+                                 referencedTableName="anamnesis"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_health_problem"
+                                 baseColumnNames="health_problem_id"
+                                 constraintName="anamnesis_health_problem_health_problem_FK"
+                                 referencedTableName="health_problem"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_drug_used"
+                                 baseColumnNames="anamnesis_id"
+                                 constraintName="anamnesis_drug_used_anamnesis_FK"
+                                 referencedTableName="anamnesis"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_drug_used"
+                                 baseColumnNames="drug_id"
+                                 constraintName="anamnesis_drug_used_drug_FK"
+                                 referencedTableName="drug"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_other_institution"
+                                 baseColumnNames="anamnesis_id"
+                                 constraintName="anamnesis_other_institution_anamnesis_FK"
+                                 referencedTableName="anamnesis"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="anamnesis_other_institution"
+                                 baseColumnNames="other_institution_id"
+                                 constraintName="anamnesis_other_institution_other_institution_FK"
+                                 referencedTableName="other_institution"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="00000000000002-3" author="brevleq">
+
+        <createSequence sequenceName="patient_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="document_type_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="marital_status_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="housing_condition_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="scholarity_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="kinship_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="profession_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="justice_problem_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="health_problem_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="controlled_medication_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="companion_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="anamnesis_id_seq" incrementBy="1" startValue="1"/>
+        <createSequence sequenceName="other_institution_id_seq" incrementBy="1" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="00000000000002-4" author="brevleq">
+        <sql>CREATE EXTENSION unaccent</sql>
     </changeSet>
 
 </databaseChangeLog>

@@ -1,0 +1,119 @@
+/*
+ * Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+ *
+ * This file is part of Liber Server.
+ *
+ * Liber Server is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or any later
+ * version.
+ *
+ * Liber Server is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
+ */
+
+package org.liber.domain;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDate;
+
+/**
+ * A patient.
+ */
+@Data
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name = "patient")
+public class Patient implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @SequenceGenerator(name = "patient_id_seq", sequenceName = "patient_id_seq", allocationSize = 1)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @NotNull
+    @Size(max = 100)
+    @Column(name = "name", length = 100, unique = true, nullable = false)
+    private String name;
+
+    @NotNull
+    @Column(name = "reception_date", nullable = false)
+    private Instant reception_date;
+
+    @NotNull
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birth_date;
+
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "sex", length = 1, nullable = false)
+    private String sex;
+
+    @NotNull
+    @Column(name = "birth_place_id", nullable = false)
+    private String birthPlace; //todo
+
+    @NotNull
+    @Size(max = 100)
+    @Column(name = "mother_name", length = 100, nullable = false)
+    private String mother_name;
+
+    @Size(max = 100)
+    @Column(name = "father_name", length = 100)
+    private String father_name;
+
+    @NotNull
+    @Column(name = "marital_status_id", nullable = false)
+    private String maritalStatus; //todo
+
+    @NotNull
+    @Column(name = "scholarity_id", nullable = false)
+    private String scholarity; //todo
+
+    @NotNull
+    @Column(name = "profession_id", nullable = false)
+    private String profession; //todo
+
+    @NotNull
+    @Column(name = "working", nullable = false)
+    private Boolean working;
+
+    @Size(max = 100)
+    @Column(name = "address_street", length = 100)
+    private String addressStreet;
+
+    @Size(max = 80)
+    @Column(name = "address_neighborhood", length = 80)
+    private String addressNeighborhood;
+
+    @Size(max = 6)
+    @Column(name = "address_number", length = 6)
+    private String addressNumber;
+
+    @Size(max = 30)
+    @Column(name = "address_complement", length = 30)
+    private String addressComplement;
+
+    @Size(max = 15)
+    @Column(name = "address_zip", length = 15)
+    private String addressZip;
+
+    @Column(name = "address_city_id")
+    private String addressCity; //todo
+}

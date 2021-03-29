@@ -49,4 +49,10 @@ public class DocumentType implements Serializable {
     @Size(max = 40)
     @Column(name = "name", length = 40, unique = true)
     private String name;
+
+    @PrePersist
+    @PreUpdate
+    private void toLowerCase() {
+        this.name = this.name.toLowerCase();
+    }
 }

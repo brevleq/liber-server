@@ -55,4 +55,10 @@ public class City implements Serializable {
     @JoinColumn(name = "state_id", nullable = false)
     private State state;
 
+    @PrePersist
+    @PreUpdate
+    private void toLowerCase() {
+        this.name = this.name.toLowerCase();
+    }
+
 }

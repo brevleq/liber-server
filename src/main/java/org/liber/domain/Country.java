@@ -54,4 +54,10 @@ public class Country implements Serializable {
     @OneToMany(mappedBy = "country")
     private List<State> states;
 
+    @PrePersist
+    @PreUpdate
+    private void toLowerCase() {
+        this.name = this.name.toLowerCase();
+    }
+
 }

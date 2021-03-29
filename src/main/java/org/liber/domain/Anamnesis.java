@@ -27,6 +27,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Set;
 
 /**
  * A anamnesis.
@@ -47,8 +48,9 @@ public class Anamnesis implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "patient_id", nullable = false)
-    private String patient_id; //todo
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
     @NotNull
     @Column(name = "overdose", nullable = false)
@@ -56,38 +58,72 @@ public class Anamnesis implements Serializable {
 
     @NotNull
     @Column(name = "psychotic_break", nullable = false)
-    private Boolean psychotic_break;
+    private Boolean psychoticBreak;
 
     @NotNull
     @Column(name = "drug_abuse_seizure", nullable = false)
-    private Boolean drug_abuse_seizure;
+    private Boolean drugAbuseSeizure;
 
     @NotNull
-    @Column(name = "favorite_drug_id", nullable = false)
-    private String favorite_drug_id; //todo
+    @ManyToOne
+    @JoinColumn(name = "favorite_drug_id", nullable = false)
+    private Drug favoriteDrug;
 
     @NotNull
     @Column(name = "drug_use_frequence", nullable = false)
-    private Integer drug_use_frequence;
+    private Integer drugUseFrequence;
 
     @NotNull
-    @Column(name = "housing_condition_id", nullable = false)
-    private String housing_condition_id; //todo
+    @ManyToOne
+    @JoinColumn(name = "housing_condition_id", nullable = false)
+    private HousingCondition housingCondition;
 
     @NotNull
     @Column(name = "quantity_people_in_house", nullable = false)
-    private Integer quantity_people_in_house;
+    private Integer quantityPeopleInHouse;
 
     @NotNull
     @Column(name = "family_income", nullable = false)
-    private BigInteger family_income;
+    private BigInteger familyIncome;
 
     @NotNull
     @Column(name = "in_government_program", nullable = false)
-    private Boolean in_government_program;
+    private Boolean inGovernmentProgram;
 
     @NotNull
-    @Column(name = "lives_with_kinship_id", nullable = false)
-    private String lives_with_kinship_id; //todo
+    @ManyToOne
+    @JoinColumn(name = "lives_with_kinship_id", nullable = false)
+    private Kinship livesWithKinship;
+
+    @OneToMany(mappedBy = "anamnesis")
+    private Set<AnamnesisOtherInstitution> anamnesisOtherInstitutions;
+
+    @ManyToMany
+    @JoinTable(
+        name = "anamnesis_justice_problem",
+        joinColumns = @JoinColumn(name = "anamnesis_id"),
+        inverseJoinColumns = @JoinColumn(name = "justice_problem_id"))
+    private Set<JusticeProblem> justiceProblems;
+
+    @ManyToMany
+    @JoinTable(
+        name = "anamnesis_drug_used",
+        joinColumns = @JoinColumn(name = "anamnesis_id"),
+        inverseJoinColumns = @JoinColumn(name = "drug_id"))
+    private Set<Drug> drugsUsed;
+
+    @ManyToMany
+    @JoinTable(
+        name = "anamnesis_controlled_medication",
+        joinColumns = @JoinColumn(name = "anamnesis_id"),
+        inverseJoinColumns = @JoinColumn(name = "controlled_medication_id"))
+    private Set<ControlledMedication> controlledMedications;
+
+    @ManyToMany
+    @JoinTable(
+        name = "anamnesis_health_problem",
+        joinColumns = @JoinColumn(name = "anamnesis_id"),
+        inverseJoinColumns = @JoinColumn(name = "health_problem_id"))
+    private Set<HealthProblem> healthProblems;
 
 }

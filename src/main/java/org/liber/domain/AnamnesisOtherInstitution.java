@@ -23,10 +23,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -42,15 +39,19 @@ public class AnamnesisOtherInstitution implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @NotNull
-    @Column(name = "anamnesis_id", nullable = false)
-    private Long anamnesisId;
+    @EmbeddedId
+    private AnamnesisOtherInstitutionPK id;
 
-    @Id
-    @NotNull
-    @Column(name = "other_institution_id", nullable = false)
-    private Long otherInstitutionId;
+
+    @ManyToOne
+    @MapsId("anamnesisId")
+    @JoinColumn(name = "anamnesis_id")
+    private Anamnesis anamnesis;
+
+    @ManyToOne
+    @MapsId("otherInstitutionId")
+    @JoinColumn(name = "other_institution_id")
+    private OtherInstitution otherInstitution;
 
     @NotNull
     @Column(name = "period_in_days", nullable = false)

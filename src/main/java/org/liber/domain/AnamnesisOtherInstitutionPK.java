@@ -19,40 +19,19 @@
 
 package org.liber.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-/**
- * A city.
- */
 @Data
 @NoArgsConstructor
-@Builder
-@Entity
-@Table(name = "city")
-public class City implements Serializable {
+@Embeddable
+public class AnamnesisOtherInstitutionPK implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @NotNull
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    @NotNull
-    @Size(max = 100)
-    @Column(name = "name", length = 100, nullable = false)
-    private String name;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "state_id", nullable = false)
-    private State state;
-
+    private Long anamnesisId;
+    private Long otherInstitutionId;
 }

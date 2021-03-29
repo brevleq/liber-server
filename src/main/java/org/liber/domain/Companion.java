@@ -77,8 +77,9 @@ public class Companion implements Serializable {
     private String address_zip;
 
     @NotNull
-    @Column(name = "address_city_id", nullable = false)
-    private String address_city_id; //todo
+    @ManyToOne
+    @JoinColumn(name = "address_city_id", nullable = false)
+    private City addressCity;
 
     @NotNull
     @Size(max = 15)
@@ -86,11 +87,13 @@ public class Companion implements Serializable {
     private String phone;
 
     @NotNull
-    @Column(name = "patient_id", nullable = false)
-    private String patient_id; //todo
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
     @NotNull
-    @Column(name = "kinship_id", nullable = false)
-    private String kinship_id; //todo
+    @ManyToOne
+    @JoinColumn(name = "kinship_id", nullable = false)
+    private Kinship kinship;
 
 }

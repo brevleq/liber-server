@@ -66,8 +66,9 @@ public class Patient implements Serializable {
     private String sex;
 
     @NotNull
-    @Column(name = "birth_place_id", nullable = false)
-    private String birthPlace; //todo
+    @ManyToOne
+    @JoinColumn(name = "birth_place_id", nullable = false)
+    private City birthPlace;
 
     @NotNull
     @Size(max = 100)
@@ -79,16 +80,19 @@ public class Patient implements Serializable {
     private String father_name;
 
     @NotNull
-    @Column(name = "marital_status_id", nullable = false)
-    private String maritalStatus; //todo
+    @ManyToOne
+    @JoinColumn(name = "marital_status_id", nullable = false)
+    private MaritalStatus maritalStatus;
 
     @NotNull
-    @Column(name = "scholarity_id", nullable = false)
-    private String scholarity; //todo
+    @ManyToOne
+    @JoinColumn(name = "scholarity_id", nullable = false)
+    private Scholarity scholarity;
 
     @NotNull
-    @Column(name = "profession_id", nullable = false)
-    private String profession; //todo
+    @ManyToOne
+    @JoinColumn(name = "profession_id", nullable = false)
+    private Profession profession;
 
     @NotNull
     @Column(name = "working", nullable = false)
@@ -114,6 +118,7 @@ public class Patient implements Serializable {
     @Column(name = "address_zip", length = 15)
     private String addressZip;
 
-    @Column(name = "address_city_id")
-    private String addressCity; //todo
+    @ManyToOne
+    @JoinColumn(name = "address_city_id")
+    private City addressCity;
 }

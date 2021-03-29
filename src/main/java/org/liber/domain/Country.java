@@ -23,13 +23,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A country.
@@ -50,7 +48,10 @@ public class Country implements Serializable {
 
     @NotNull
     @Size(max = 100)
-    @Column(name = "name", length = 100)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "country")
+    private List<State> states;
 
 }

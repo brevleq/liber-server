@@ -27,6 +27,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * A justice problem.
@@ -50,5 +51,8 @@ public class JusticeProblem implements Serializable {
     @Size(max = 50)
     @Column(name = "name", length = 50, nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "justiceProblems")
+    private Set<Anamnesis> anamneses;
 
 }

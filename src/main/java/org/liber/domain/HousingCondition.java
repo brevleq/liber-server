@@ -42,6 +42,7 @@ public class HousingCondition implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "housing_condition_id_seq")
     @SequenceGenerator(name = "housing_condition_id_seq", sequenceName = "housing_condition_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

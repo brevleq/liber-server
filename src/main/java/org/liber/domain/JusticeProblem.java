@@ -43,6 +43,7 @@ public class JusticeProblem implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "justice_problem_id_seq")
     @SequenceGenerator(name = "justice_problem_id_seq", sequenceName = "justice_problem_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

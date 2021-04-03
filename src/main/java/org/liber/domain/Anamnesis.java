@@ -43,6 +43,7 @@ public class Anamnesis implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "anamnesis_id_seq")
     @SequenceGenerator(name = "anamnesis_id_seq", sequenceName = "anamnesis_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

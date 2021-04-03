@@ -42,6 +42,7 @@ public class Companion implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "companion_id_seq")
     @SequenceGenerator(name = "companion_id_seq", sequenceName = "companion_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

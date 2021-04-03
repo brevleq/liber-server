@@ -42,6 +42,7 @@ public class Drug implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "drug_id_seq")
     @SequenceGenerator(name = "drug_id_seq", sequenceName = "drug_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

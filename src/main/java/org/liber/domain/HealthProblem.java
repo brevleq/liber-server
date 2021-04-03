@@ -42,6 +42,7 @@ public class HealthProblem implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "health_problem_id_seq")
     @SequenceGenerator(name = "health_problem_id_seq", sequenceName = "health_problem_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

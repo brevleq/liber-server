@@ -42,6 +42,7 @@ public class MaritalStatus implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "marital_status_id_seq")
     @SequenceGenerator(name = "marital_status_id_seq", sequenceName = "marital_status_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

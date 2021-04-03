@@ -42,6 +42,7 @@ public class Profession implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profession_id_seq")
     @SequenceGenerator(name = "profession_id_seq", sequenceName = "profession_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

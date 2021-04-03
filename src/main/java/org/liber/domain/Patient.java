@@ -43,6 +43,7 @@ public class Patient implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_id_seq")
     @SequenceGenerator(name = "patient_id_seq", sequenceName = "patient_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

@@ -42,6 +42,7 @@ public class OtherInstitution implements Serializable {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "other_institution_id_seq")
     @SequenceGenerator(name = "other_institution_id_seq", sequenceName = "other_institution_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;

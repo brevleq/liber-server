@@ -17,45 +17,12 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package org.liber.domain;
+package org.liber.service.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.List;
-
-/**
- * A country.
- */
 @Data
-@NoArgsConstructor
-@Entity
-@Table(name = "country")
-public class Country implements Serializable {
+public class CommonDTO {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @NotNull
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    @NotNull
-    @Size(max = 100)
-    @Column(name = "name", length = 100, nullable = false)
     private String name;
-
-    @OneToMany(mappedBy = "country")
-    private List<State> states;
-
-    @PrePersist
-    @PreUpdate
-    private void toLowerCase() {
-        this.name = this.name.toLowerCase();
-    }
-
 }

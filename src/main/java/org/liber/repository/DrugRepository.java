@@ -20,8 +20,19 @@
 package org.liber.repository;
 
 import org.liber.domain.Drug;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface DrugRepository extends JpaRepository<Drug, Long> {
 
+    @Query("select d from Drug d where lower(unaccent(d.name))=lower(unaccent(:name))")
+    Optional<Drug> findByName(@Param("name") String name);
+
+    @Query("select d from Drug d where lower(unaccent(d.name)) like lower(unaccent(:filter)) ")
+    Page<Drug> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

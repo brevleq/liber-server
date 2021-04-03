@@ -19,7 +19,6 @@
 
 package org.liber.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,7 +33,6 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "state")
 public class State implements Serializable {

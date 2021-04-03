@@ -498,7 +498,6 @@
     </changeSet>
 
     <changeSet id="00000000000002-3" author="brevleq">
-
         <createSequence sequenceName="patient_id_seq" incrementBy="1" startValue="1"/>
         <createSequence sequenceName="document_type_id_seq" incrementBy="1" startValue="1"/>
         <createSequence sequenceName="marital_status_id_seq" incrementBy="1" startValue="1"/>
@@ -516,6 +515,10 @@
 
     <changeSet id="00000000000002-4" author="brevleq">
         <sql>CREATE EXTENSION unaccent</sql>
+    </changeSet>
+
+    <changeSet id="00000000000002-5" author="brevleq">
+        <createSequence sequenceName="drug_id_seq" incrementBy="1" startValue="1"/>
     </changeSet>
 
 </databaseChangeLog>

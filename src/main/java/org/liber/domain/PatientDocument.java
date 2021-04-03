@@ -19,7 +19,6 @@
 
 package org.liber.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -33,7 +32,6 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-@Builder
 @Entity
 @IdClass(value = PatientDocumentPK.class)
 @Table(name = "patient_document")

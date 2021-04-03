@@ -19,7 +19,6 @@
 
 package org.liber.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -33,7 +32,6 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "profession")
 public class Profession implements Serializable {
@@ -49,7 +47,7 @@ public class Profession implements Serializable {
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "name", length = 50, nullable = false, unique = true])
+    @Column(name = "name", length = 50, nullable = false, unique = true)
     private String name;
 
     @PrePersist

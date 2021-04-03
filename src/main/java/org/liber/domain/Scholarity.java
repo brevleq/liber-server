@@ -19,7 +19,6 @@
 
 package org.liber.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -33,7 +32,6 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "scholarity")
 public class Scholarity implements Serializable {

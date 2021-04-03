@@ -20,6 +20,7 @@
 package org.liber.repository;
 
 import org.liber.domain.PatientDocument;
+import org.liber.domain.PatientDocumentPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PatientDocumentRepository extends JpaRepository<PatientDocument, PatientDocumentPK> {

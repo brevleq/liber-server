@@ -19,7 +19,6 @@
 
 package org.liber.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -35,7 +34,6 @@ import java.time.LocalDate;
  */
 @Data
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "patient")
 public class Patient implements Serializable {

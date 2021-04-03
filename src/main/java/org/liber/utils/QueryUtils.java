@@ -17,22 +17,12 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package org.liber.security;
+package org.liber.utils;
 
-/**
- * Constants for Spring Security authorities.
- */
-public final class AuthoritiesConstants {
+public class QueryUtils {
 
-    public static final String ADMIN = "ROLE_ADMIN";
-    public static final String USER = "ROLE_USER";
-    public static final String ANONYMOUS = "ROLE_ANONYMOUS";
-    public static final String DENTIST = "ROLE_DENTIST";
-    public static final String PSYCHOLOGIST = "ROLE_PSYCHOLOGIST";
-    public static final String PSYCHIATRIST = "ROLE_PSYCHIATRIST";
-    public static final String SECRETARY = "ROLE_SECRETARY";
-    public static final String SOCIAL_ASSISTANT = "ROLE_SOCIAL_ASSISTANT";
-
-    private AuthoritiesConstants() {
+    public static String prepareLikeParameter(String parameter) {
+        return parameter != null && !parameter.isEmpty() && !parameter.equals("%") ? "%" + parameter + "%" : "%";
     }
+
 }

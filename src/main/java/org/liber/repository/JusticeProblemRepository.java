@@ -20,8 +20,18 @@
 package org.liber.repository;
 
 import org.liber.domain.JusticeProblem;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface JusticeProblemRepository extends JpaRepository<JusticeProblem, Long> {
+    @Query("select jp from JusticeProblem jp where lower(unaccent(jp.name))=lower(unaccent(:name))")
+    Optional<JusticeProblem> findByName(@Param("name") String name);
 
+    @Query("select jp from JusticeProblem jp where lower(unaccent(jp.name)) like lower(unaccent(:filter)) ")
+    Page<JusticeProblem> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

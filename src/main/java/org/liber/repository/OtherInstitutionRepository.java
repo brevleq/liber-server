@@ -20,7 +20,19 @@
 package org.liber.repository;
 
 import org.liber.domain.OtherInstitution;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface OtherInstitutionRepository extends JpaRepository<OtherInstitution, Long> {
+
+    @Query("select oi from OtherInstitution oi where lower(unaccent(oi.name))=lower(unaccent(:name))")
+    Optional<OtherInstitution> findByName(@Param("name") String name);
+
+    @Query("select oi from OtherInstitution oi where lower(unaccent(oi.name)) like lower(unaccent(:filter)) ")
+    Page<OtherInstitution> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

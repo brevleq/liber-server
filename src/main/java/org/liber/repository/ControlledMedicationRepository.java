@@ -20,7 +20,19 @@
 package org.liber.repository;
 
 import org.liber.domain.ControlledMedication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface ControlledMedicationRepository extends JpaRepository<ControlledMedication, Long> {
+
+    @Query("select cm from ControlledMedication cm where lower(unaccent(cm.name))=lower(unaccent(:name))")
+    Optional<ControlledMedication> findByName(@Param("name") String name);
+
+    @Query("select cm from ControlledMedication cm where lower(unaccent(cm.name)) like lower(unaccent(:filter)) ")
+    Page<ControlledMedication> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

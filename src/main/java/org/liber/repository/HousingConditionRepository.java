@@ -20,8 +20,19 @@
 package org.liber.repository;
 
 import org.liber.domain.HousingCondition;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface HousingConditionRepository extends JpaRepository<HousingCondition, Long> {
 
+    @Query("select hc from HousingCondition hc where lower(unaccent(hc.name))=lower(unaccent(:name))")
+    Optional<HousingCondition> findByName(@Param("name") String name);
+
+    @Query("select hc from HousingCondition hc where lower(unaccent(hc.name)) like lower(unaccent(:filter)) ")
+    Page<HousingCondition> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

@@ -20,8 +20,20 @@
 package org.liber.repository;
 
 import org.liber.domain.Profession;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface ProfessionRepository extends JpaRepository<Profession, Long> {
+
+    @Query("select p from Profession p where lower(unaccent(p.name))=lower(unaccent(:name))")
+    Optional<Profession> findByName(@Param("name") String name);
+
+    @Query("select p from Profession p where lower(unaccent(p.name)) like lower(unaccent(:filter)) ")
+    Page<Profession> findAllByName(@Param("filter") String filter, Pageable pageable);
 
 }

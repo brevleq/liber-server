@@ -20,8 +20,20 @@
 package org.liber.repository;
 
 import org.liber.domain.DocumentType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface DocumentTypeRepository extends JpaRepository<DocumentType, Long> {
+
+    @Query("select dt from DocumentType dt where lower(unaccent(dt.name))=lower(unaccent(:name))")
+    Optional<DocumentType> findByName(@Param("name") String name);
+
+    @Query("select dt from DocumentType dt where lower(unaccent(dt.name)) like lower(unaccent(:filter)) ")
+    Page<DocumentType> findAllByName(@Param("filter") String filter, Pageable pageable);
 
 }

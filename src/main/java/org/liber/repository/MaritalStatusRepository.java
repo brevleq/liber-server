@@ -20,8 +20,19 @@
 package org.liber.repository;
 
 import org.liber.domain.MaritalStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface MaritalStatusRepository extends JpaRepository<MaritalStatus, Long> {
 
+    @Query("select ms from MaritalStatus ms where lower(unaccent(ms.name))=lower(unaccent(:name))")
+    Optional<MaritalStatus> findByName(@Param("name") String name);
+
+    @Query("select ms from MaritalStatus ms where lower(unaccent(ms.name)) like lower(unaccent(:filter)) ")
+    Page<MaritalStatus> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

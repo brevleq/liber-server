@@ -19,15 +19,16 @@
 
 package org.liber.service;
 
-import org.liber.domain.PersistentAuditEvent;
-import org.liber.repository.PersistenceAuditEventRepository;
-import org.liber.LiberApp;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.liber.LiberApp;
+import org.liber.domain.entities.PersistentAuditEvent;
+import org.liber.domain.repository.PersistenceAuditEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 

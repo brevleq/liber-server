@@ -20,8 +20,8 @@
 package org.liber.service;
 
 import lombok.RequiredArgsConstructor;
-import org.liber.domain.Profession;
-import org.liber.repository.ProfessionRepository;
+import org.liber.domain.entities.Profession;
+import org.liber.domain.repository.ProfessionRepository;
 import org.liber.service.dto.CommonDTO;
 import org.liber.utils.QueryUtils;
 import org.liber.web.rest.errors.BadRequestAlertException;

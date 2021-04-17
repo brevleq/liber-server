@@ -20,8 +20,8 @@
 package org.liber.service;
 
 import lombok.RequiredArgsConstructor;
-import org.liber.domain.JusticeProblem;
-import org.liber.repository.JusticeProblemRepository;
+import org.liber.domain.entities.JusticeProblem;
+import org.liber.domain.repository.JusticeProblemRepository;
 import org.liber.service.dto.CommonDTO;
 import org.liber.utils.QueryUtils;
 import org.liber.web.rest.errors.BadRequestAlertException;

@@ -23,7 +23,7 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.liber.domain.Kinship;
+import org.liber.domain.entities.Kinship;
 import org.liber.security.AuthoritiesConstants;
 import org.liber.service.KinshipService;
 import org.liber.service.dto.CommonDTO;

@@ -19,28 +19,25 @@
 
 package org.liber.web.rest;
 
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.liber.config.Constants;
-import org.liber.domain.User;
-import org.liber.repository.UserRepository;
+import org.liber.domain.entities.User;
+import org.liber.domain.repository.UserRepository;
 import org.liber.security.AuthoritiesConstants;
 import org.liber.service.MailService;
-import org.springframework.data.domain.Sort;
-import java.util.Collections;
 import org.liber.service.UserService;
 import org.liber.service.dto.UserDTO;
 import org.liber.web.rest.errors.BadRequestAlertException;
 import org.liber.web.rest.errors.EmailAlreadyUsedException;
 import org.liber.web.rest.errors.LoginAlreadyUsedException;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +48,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing users.

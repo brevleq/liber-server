@@ -19,13 +19,12 @@
 
 package org.liber.security;
 
-import org.liber.LiberApp;
-import org.liber.domain.User;
-import org.liber.repository.UserRepository;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.liber.LiberApp;
+import org.liber.domain.entities.User;
+import org.liber.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;

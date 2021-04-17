@@ -19,36 +19,38 @@
 
 package org.liber.web.rest;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Test;
 import org.liber.LiberApp;
 import org.liber.config.Constants;
-import org.liber.domain.User;
-import org.liber.repository.AuthorityRepository;
-import org.liber.repository.UserRepository;
+import org.liber.domain.entities.User;
+import org.liber.domain.repository.AuthorityRepository;
+import org.liber.domain.repository.UserRepository;
 import org.liber.security.AuthoritiesConstants;
 import org.liber.service.UserService;
 import org.liber.service.dto.PasswordChangeDTO;
 import org.liber.service.dto.UserDTO;
 import org.liber.web.rest.vm.KeyAndPasswordVM;
 import org.liber.web.rest.vm.ManagedUserVM;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.liber.web.rest.AccountResourceIT.TEST_USER_LOGIN;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**

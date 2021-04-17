@@ -19,11 +19,11 @@
 
 package org.liber.config.timezone;
 
-import org.liber.LiberApp;
-import org.liber.repository.timezone.DateTimeWrapper;
-import org.liber.repository.timezone.DateTimeWrapperRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.liber.LiberApp;
+import org.liber.domain.repository.timezone.DateTimeWrapper;
+import org.liber.domain.repository.timezone.DateTimeWrapperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -20,8 +20,8 @@
 package org.liber.service;
 
 import lombok.RequiredArgsConstructor;
-import org.liber.domain.Kinship;
-import org.liber.repository.KinshipRepository;
+import org.liber.domain.entities.Kinship;
+import org.liber.domain.repository.KinshipRepository;
 import org.liber.service.dto.CommonDTO;
 import org.liber.utils.QueryUtils;
 import org.liber.web.rest.errors.BadRequestAlertException;

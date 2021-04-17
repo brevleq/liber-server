@@ -19,13 +19,15 @@
 
 package org.liber.service.mapper;
 
-import org.liber.domain.Authority;
-import org.liber.domain.User;
+import org.liber.domain.entities.Authority;
+import org.liber.domain.entities.User;
 import org.liber.service.dto.UserDTO;
-
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

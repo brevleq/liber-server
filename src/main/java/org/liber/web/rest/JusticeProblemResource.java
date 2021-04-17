@@ -23,7 +23,7 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.liber.domain.JusticeProblem;
+import org.liber.domain.entities.JusticeProblem;
 import org.liber.security.AuthoritiesConstants;
 import org.liber.service.JusticeProblemService;
 import org.liber.service.dto.CommonDTO;

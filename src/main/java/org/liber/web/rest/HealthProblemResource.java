@@ -23,7 +23,7 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.liber.domain.HealthProblem;
+import org.liber.domain.entities.HealthProblem;
 import org.liber.security.AuthoritiesConstants;
 import org.liber.service.HealthProblemService;
 import org.liber.service.dto.CommonDTO;

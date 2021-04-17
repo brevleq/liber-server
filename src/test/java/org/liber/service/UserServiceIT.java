@@ -19,17 +19,14 @@
 
 package org.liber.service;
 
-import org.liber.LiberApp;
-import org.liber.config.Constants;
-import org.liber.domain.User;
-import org.liber.repository.UserRepository;
-import org.liber.service.dto.UserDTO;
-
-import io.github.jhipster.security.RandomUtil;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.liber.LiberApp;
+import org.liber.config.Constants;
+import org.liber.domain.entities.User;
+import org.liber.domain.repository.UserRepository;
+import org.liber.service.dto.UserDTO;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,10 +36,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;

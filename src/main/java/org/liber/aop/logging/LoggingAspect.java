@@ -20,7 +20,6 @@
 package org.liber.aop.logging;
 
 import io.github.jhipster.config.JHipsterConstants;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -61,7 +60,7 @@ public class LoggingAspect {
     /**
      * Pointcut that matches all Spring beans in the application's main packages.
      */
-    @Pointcut("within(org.liber.repository..*)"+
+    @Pointcut("within(org.liber.domain.repository..*)"+
         " || within(org.liber.service..*)"+
         " || within(org.liber.web.rest..*)")
     public void applicationPackagePointcut() {

@@ -21,27 +21,22 @@ package org.liber.web.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.liber.converters.UserConverter;
-import org.liber.domain.User;
-import org.liber.repository.UserRepository;
+import org.liber.domain.entities.User;
+import org.liber.domain.repository.UserRepository;
 import org.liber.security.SecurityUtils;
-import org.liber.service.MailService;
 import org.liber.service.UserService;
 import org.liber.service.dto.PasswordChangeDTO;
 import org.liber.service.dto.UserDTO;
-import org.liber.web.rest.errors.*;
-import org.liber.web.rest.vm.KeyAndPasswordVM;
+import org.liber.web.rest.errors.EmailAlreadyUsedException;
+import org.liber.web.rest.errors.InvalidPasswordException;
 import org.liber.web.rest.vm.ManagedUserVM;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Optional;
 
 /**
  * REST controller for managing the current user's account.

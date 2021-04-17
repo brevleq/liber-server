@@ -20,8 +20,8 @@
 package org.liber.service;
 
 import lombok.RequiredArgsConstructor;
-import org.liber.domain.MaritalStatus;
-import org.liber.repository.MaritalStatusRepository;
+import org.liber.domain.entities.MaritalStatus;
+import org.liber.domain.repository.MaritalStatusRepository;
 import org.liber.service.dto.CommonDTO;
 import org.liber.utils.QueryUtils;
 import org.liber.web.rest.errors.BadRequestAlertException;

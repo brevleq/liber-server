@@ -19,11 +19,11 @@
 
 package org.liber.service.mapper;
 
-import org.liber.domain.User;
-import org.liber.service.dto.UserDTO;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.liber.domain.entities.User;
+import org.liber.service.dto.UserDTO;
 
 import java.util.ArrayList;
 import java.util.HashSet;

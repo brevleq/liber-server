@@ -20,8 +20,8 @@
 package org.liber.service;
 
 import lombok.RequiredArgsConstructor;
-import org.liber.domain.HousingCondition;
-import org.liber.repository.HousingConditionRepository;
+import org.liber.domain.entities.HousingCondition;
+import org.liber.domain.repository.HousingConditionRepository;
 import org.liber.service.dto.CommonDTO;
 import org.liber.utils.QueryUtils;
 import org.liber.web.rest.errors.BadRequestAlertException;

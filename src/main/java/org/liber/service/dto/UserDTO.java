@@ -19,10 +19,13 @@
 
 package org.liber.service.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.liber.config.Constants;
-import org.liber.domain.Authority;
-import org.liber.domain.User;
+import org.liber.domain.entities.Authority;
+import org.liber.domain.entities.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

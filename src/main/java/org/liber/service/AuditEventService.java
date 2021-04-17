@@ -21,7 +21,7 @@ package org.liber.service;
 
 import io.github.jhipster.config.JHipsterProperties;
 import org.liber.config.audit.AuditEventConverter;
-import org.liber.repository.PersistenceAuditEventRepository;
+import org.liber.domain.repository.PersistenceAuditEventRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;

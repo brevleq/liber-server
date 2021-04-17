@@ -21,8 +21,8 @@ package org.liber.converters;
 
 import lombok.RequiredArgsConstructor;
 import org.liber.config.Constants;
-import org.liber.domain.Authority;
-import org.liber.domain.User;
+import org.liber.domain.entities.Authority;
+import org.liber.domain.entities.User;
 import org.liber.service.dto.UserDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

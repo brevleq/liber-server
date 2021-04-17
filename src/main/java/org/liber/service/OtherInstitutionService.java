@@ -20,8 +20,8 @@
 package org.liber.service;
 
 import lombok.RequiredArgsConstructor;
-import org.liber.domain.OtherInstitution;
-import org.liber.repository.OtherInstitutionRepository;
+import org.liber.domain.entities.OtherInstitution;
+import org.liber.domain.repository.OtherInstitutionRepository;
 import org.liber.service.dto.CommonDTO;
 import org.liber.utils.QueryUtils;
 import org.liber.web.rest.errors.BadRequestAlertException;

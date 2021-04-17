@@ -21,10 +21,10 @@ package org.liber.service;
 
 import io.github.jhipster.security.RandomUtil;
 import org.liber.config.Constants;
-import org.liber.domain.Authority;
-import org.liber.domain.User;
-import org.liber.repository.AuthorityRepository;
-import org.liber.repository.UserRepository;
+import org.liber.domain.entities.Authority;
+import org.liber.domain.entities.User;
+import org.liber.domain.repository.AuthorityRepository;
+import org.liber.domain.repository.UserRepository;
 import org.liber.security.SecurityUtils;
 import org.liber.service.dto.UserDTO;
 import org.slf4j.Logger;

@@ -24,9 +24,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     @Query("select p from Patient p where lower(unaccent(p.name)) like lower(unaccent(:filter))")
-    Page<Patient> findAllByFilter(String filter, Pageable pageable);
+    Page<Patient> findAllByFilter(@Param("filter") String filter, Pageable pageable);
 }

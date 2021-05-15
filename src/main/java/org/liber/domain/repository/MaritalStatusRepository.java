@@ -30,9 +30,9 @@ import java.util.Optional;
 
 public interface MaritalStatusRepository extends JpaRepository<MaritalStatus, Long> {
 
-    @Query("select ms from MaritalStatus ms where lower(unaccent(ms.name))=lower(unaccent(:name))")
+    @Query("select ms from MaritalStatus ms where lower(unaccent(cast(ms.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<MaritalStatus> findByName(@Param("name") String name);
 
-    @Query("select ms from MaritalStatus ms where lower(unaccent(ms.name)) like lower(unaccent(:filter)) ")
+    @Query("select ms from MaritalStatus ms where lower(unaccent(cast(ms.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<MaritalStatus> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

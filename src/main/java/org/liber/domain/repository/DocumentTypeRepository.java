@@ -30,10 +30,10 @@ import java.util.Optional;
 
 public interface DocumentTypeRepository extends JpaRepository<DocumentType, Long> {
 
-    @Query("select dt from DocumentType dt where lower(unaccent(dt.name))=lower(unaccent(:name))")
+    @Query("select dt from DocumentType dt where lower(unaccent(cast(dt.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<DocumentType> findByName(@Param("name") String name);
 
-    @Query("select dt from DocumentType dt where lower(unaccent(dt.name)) like lower(unaccent(:filter)) ")
+    @Query("select dt from DocumentType dt where lower(unaccent(cast(dt.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<DocumentType> findAllByName(@Param("filter") String filter, Pageable pageable);
 
 }

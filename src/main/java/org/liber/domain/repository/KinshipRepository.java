@@ -30,9 +30,9 @@ import java.util.Optional;
 
 public interface KinshipRepository extends JpaRepository<Kinship, Long> {
 
-    @Query("select k from Kinship k where lower(unaccent(k.name))=lower(unaccent(:name))")
+    @Query("select k from Kinship k where lower(unaccent(cast(k.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<Kinship> findByName(@Param("name") String name);
 
-    @Query("select k from Kinship k where lower(unaccent(k.name)) like lower(unaccent(:filter)) ")
+    @Query("select k from Kinship k where lower(unaccent(cast(k.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<Kinship> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

@@ -30,10 +30,10 @@ import java.util.Optional;
 
 public interface HealthProblemRepository extends JpaRepository<HealthProblem, Long> {
 
-    @Query("select hp from HealthProblem hp where lower(unaccent(hp.name))=lower(unaccent(:name))")
+    @Query("select hp from HealthProblem hp where lower(unaccent(cast(hp.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<HealthProblem> findByName(@Param("name") String name);
 
-    @Query("select hp from HealthProblem hp where lower(unaccent(hp.name)) like lower(unaccent(:filter)) ")
+    @Query("select hp from HealthProblem hp where lower(unaccent(cast(hp.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<HealthProblem> findAllByName(@Param("filter") String filter, Pageable pageable);
 
 }

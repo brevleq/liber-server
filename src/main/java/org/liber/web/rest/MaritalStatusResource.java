@@ -65,7 +65,7 @@ public class MaritalStatusResource {
      */
     @PostMapping("/marital-status")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\")")
-    public ResponseEntity<MaritalStatus> createmaritalStatus(@Valid @RequestBody CommonDTO dto) throws URISyntaxException {
+    public ResponseEntity<MaritalStatus> createMaritalStatus(@Valid @RequestBody CommonDTO dto) throws URISyntaxException {
         log.debug("REST request to save maritalStatus : {}", dto);
         MaritalStatus createdMaritalStatus = maritalStatusService.create(dto);
         return ResponseEntity.created(new URI("/api/marital-status/" + createdMaritalStatus.getId()))

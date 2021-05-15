@@ -30,10 +30,10 @@ import java.util.Optional;
 
 public interface ProfessionRepository extends JpaRepository<Profession, Long> {
 
-    @Query("select p from Profession p where lower(unaccent(p.name))=lower(unaccent(:name))")
+    @Query("select p from Profession p where lower(unaccent(cast(p.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<Profession> findByName(@Param("name") String name);
 
-    @Query("select p from Profession p where lower(unaccent(p.name)) like lower(unaccent(:filter)) ")
+    @Query("select p from Profession p where lower(unaccent(cast(p.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<Profession> findAllByName(@Param("filter") String filter, Pageable pageable);
 
 }

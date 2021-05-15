@@ -21,8 +21,11 @@ package org.liber.service.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 public class CommonDTO {
 
+    @NotNull
     private String name;
 }

@@ -30,10 +30,10 @@ import java.util.Optional;
 
 public interface ScholarityRepository extends JpaRepository<Scholarity, Long> {
 
-    @Query("select s from Scholarity s where lower(unaccent(s.name))=lower(unaccent(:name))")
+    @Query("select s from Scholarity s where lower(unaccent(cast(s.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<Scholarity> findByName(@Param("name") String name);
 
-    @Query("select s from Scholarity s where lower(unaccent(s.name)) like lower(unaccent(:filter)) ")
+    @Query("select s from Scholarity s where lower(unaccent(cast(s.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<Scholarity> findAllByName(@Param("filter") String filter, Pageable pageable);
 
 }

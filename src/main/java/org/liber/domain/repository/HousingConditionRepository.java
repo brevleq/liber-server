@@ -30,9 +30,9 @@ import java.util.Optional;
 
 public interface HousingConditionRepository extends JpaRepository<HousingCondition, Long> {
 
-    @Query("select hc from HousingCondition hc where lower(unaccent(hc.name))=lower(unaccent(:name))")
+    @Query("select hc from HousingCondition hc where lower(unaccent(cast(hc.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<HousingCondition> findByName(@Param("name") String name);
 
-    @Query("select hc from HousingCondition hc where lower(unaccent(hc.name)) like lower(unaccent(:filter)) ")
+    @Query("select hc from HousingCondition hc where lower(unaccent(cast(hc.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<HousingCondition> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

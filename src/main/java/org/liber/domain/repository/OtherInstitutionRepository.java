@@ -30,9 +30,9 @@ import java.util.Optional;
 
 public interface OtherInstitutionRepository extends JpaRepository<OtherInstitution, Long> {
 
-    @Query("select oi from OtherInstitution oi where lower(unaccent(oi.name))=lower(unaccent(:name))")
+    @Query("select oi from OtherInstitution oi where lower(unaccent(cast(oi.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<OtherInstitution> findByName(@Param("name") String name);
 
-    @Query("select oi from OtherInstitution oi where lower(unaccent(oi.name)) like lower(unaccent(:filter)) ")
+    @Query("select oi from OtherInstitution oi where lower(unaccent(cast(oi.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<OtherInstitution> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

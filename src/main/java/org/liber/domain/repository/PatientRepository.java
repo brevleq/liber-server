@@ -28,6 +28,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    @Query("select p from Patient p where lower(unaccent(p.name)) like lower(unaccent(:filter))")
+    @Query("select p from Patient p where lower(unaccent(cast(p.name as string))) like lower(unaccent(cast(:filter as string)))")
     Page<Patient> findAllByFilter(@Param("filter") String filter, Pageable pageable);
 }

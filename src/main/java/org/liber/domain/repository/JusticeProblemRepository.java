@@ -29,9 +29,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface JusticeProblemRepository extends JpaRepository<JusticeProblem, Long> {
-    @Query("select jp from JusticeProblem jp where lower(unaccent(jp.name))=lower(unaccent(:name))")
+    @Query("select jp from JusticeProblem jp where lower(unaccent(cast(jp.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<JusticeProblem> findByName(@Param("name") String name);
 
-    @Query("select jp from JusticeProblem jp where lower(unaccent(jp.name)) like lower(unaccent(:filter)) ")
+    @Query("select jp from JusticeProblem jp where lower(unaccent(cast(jp.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<JusticeProblem> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

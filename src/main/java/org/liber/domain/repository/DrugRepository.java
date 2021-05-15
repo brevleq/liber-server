@@ -30,9 +30,9 @@ import java.util.Optional;
 
 public interface DrugRepository extends JpaRepository<Drug, Long> {
 
-    @Query("select d from Drug d where lower(unaccent(d.name))=lower(unaccent(:name))")
+    @Query("select d from Drug d where lower(unaccent(cast(d.name as string)))=lower(unaccent(cast(:name as string)))")
     Optional<Drug> findByName(@Param("name") String name);
 
-    @Query("select d from Drug d where lower(unaccent(d.name)) like lower(unaccent(:filter)) ")
+    @Query("select d from Drug d where lower(unaccent(cast(d.name as string))) like lower(unaccent(cast(:filter as string))) ")
     Page<Drug> findAllByName(@Param("filter") String filter, Pageable pageable);
 }

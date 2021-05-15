@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+  ~
+  ~ This file is part of Liber Server.
+  ~
+  ~ Liber Server is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or any later
+  ~ version.
+  ~
+  ~ Liber Server is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
+  -->
+
+<databaseChangeLog
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="00000000000003-1" author="brevleq">
+        <loadData file="config/liquibase/data/countries.csv" tableName="country">
+            <column name="id" type="numeric"/>
+            <column name="name" header="native" type="string"/>
+            <column header="english_name" type="skip"/>
+            <column header="iso3" type="skip"/>
+            <column header="iso2" type="skip"/>
+            <column header="phone_code" type="skip"/>
+            <column header="capital" type="skip"/>
+            <column header="currency" type="skip"/>
+            <column header="currency_symbol" type="skip"/>
+            <column header="tld" type="skip"/>
+            <column header="region" type="skip"/>
+            <column header="subregion" type="skip"/>
+            <column header="timezones" type="skip"/>
+            <column header="latitude" type="skip"/>
+            <column header="longitude" type="skip"/>
+            <column header="emoji" type="skip"/>
+            <column header="emojiU" type="skip"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="00000000000003-2" author="brevleq">
+        <modifyDataType tableName="state" columnName="abbreviation" newDataType="varchar(10)"/>
+        <loadData file="config/liquibase/data/states.csv" tableName="state">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="country_id" type="numeric"/>
+            <column name="abbreviation" header="state_code" type="string"/>
+            <column header="country_code" type="skip"/>
+            <column header="latitude" type="skip"/>
+            <column header="longitude" type="skip"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="00000000000003-3" author="brevleq">
+        <loadData file="config/liquibase/data/cities.csv" tableName="city">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="state_id" type="numeric"/>
+            <column header="state_code" type="skip"/>
+            <column header="country_id" type="skip"/>
+            <column header="country_code" type="skip"/>
+            <column header="latitude" type="skip"/>
+            <column header="longitude" type="skip"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

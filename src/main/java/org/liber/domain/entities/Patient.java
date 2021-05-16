@@ -54,7 +54,7 @@ public class Patient implements Serializable {
 
     @NotNull
     @Column(name = "reception_date", nullable = false)
-    private Instant receptionDate;
+    private Instant receptionDate = Instant.now();
 
     @NotNull
     @Column(name = "birth_date", nullable = false)

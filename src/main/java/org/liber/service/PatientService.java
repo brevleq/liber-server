@@ -75,10 +75,9 @@ public class PatientService {
         entity.setMotherName(dto.getMotherName());
         entity.setName(dto.getName());
         entity.setProfession(findProfession(dto.getProfessionId()));
-        entity.setReceptionDate(dto.getReceptionDate());
         entity.setScholarity(findScholarity(dto.getScholarityId()));
         entity.setSex(dto.getSex());
-        entity.setWorking(dto.getWorking());
+        entity.setWorking(dto.isWorking());
         return entity;
     }
 

@@ -24,8 +24,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.liber.domain.enums.Sex;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -41,10 +43,11 @@ public class PatientDTO {
     @Size(max = 100)
     private String name;
 
-    @NotNull
     private Instant receptionDate;
 
     @NotNull
+    @Past
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
 
     @NotNull
@@ -70,7 +73,7 @@ public class PatientDTO {
     private Long professionId;
 
     @NotNull
-    private Boolean working;
+    private boolean working;
 
     @Size(max = 100)
     private String addressStreet;

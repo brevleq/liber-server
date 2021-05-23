@@ -30,6 +30,6 @@ public class PatientDocumentPK implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long patientId;
-    private Long documentId;
+    private Long patient;
+    private Long document;
 }

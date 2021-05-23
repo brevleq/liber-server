@@ -29,6 +29,8 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A patient.
@@ -121,4 +123,7 @@ public class Patient implements Serializable {
     @ManyToOne
     @JoinColumn(name = "address_city_id")
     private City addressCity;
+
+    @OneToMany(mappedBy = "patient")
+    private Set<PatientDocument> documents = new HashSet<PatientDocument>();
 }

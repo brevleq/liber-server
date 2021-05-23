@@ -19,19 +19,22 @@
 
 package org.liber.domain.entities;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A state.
  */
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "state")
@@ -62,4 +65,16 @@ public class State implements Serializable {
     @OneToMany(mappedBy = "state")
     private List<City> cities;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        State state = (State) o;
+        return Objects.equals(id, state.id) && Objects.equals(name, state.name) && Objects.equals(abbreviation, state.abbreviation) && Objects.equals(country.getId(), state.country.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return country.getId().hashCode();
+    }
 }

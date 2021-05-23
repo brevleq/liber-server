@@ -20,11 +20,16 @@
 package org.liber.converters;
 
 import org.liber.domain.entities.Patient;
+import org.liber.domain.entities.PatientDocument;
 import org.liber.service.dto.PatientDTO;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class PatientConverter {
 
-    public static PatientDTO convert(Patient entity){
+    public static PatientDTO convert(Patient entity) {
         return PatientDTO.builder()
             .id(entity.getId())
             .addressCityId(entity.getAddressCity().getId())
@@ -44,6 +49,14 @@ public class PatientConverter {
             .scholarityId(entity.getScholarity().getId())
             .sex(entity.getSex())
             .working(entity.getWorking())
+            .documents(convertDocuments(entity.getDocuments()))
             .build();
+    }
+
+    private static Map<Long, String> convertDocuments(Set<PatientDocument> patientDocuments) {
+        final Map<Long, String> documents = new HashMap<>();
+        for (PatientDocument patientDocument : patientDocuments)
+            documents.put(patientDocument.getDocument().getId(), patientDocument.getValue());
+        return documents;
     }
 }

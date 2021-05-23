@@ -19,19 +19,22 @@
 
 package org.liber.domain.entities;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A city.
  */
-@Data
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "city")
 public class City implements Serializable {
@@ -59,4 +62,16 @@ public class City implements Serializable {
         this.name = this.name.toLowerCase();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return Objects.equals(id, city.id) && Objects.equals(name, city.name) && Objects.equals(state.getId(), city.state.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return state.getId().hashCode();
+    }
 }

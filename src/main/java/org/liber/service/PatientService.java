@@ -31,11 +31,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class PatientService {
 
+    private final PatientDocumentRepository patientDocumentRepository;
     private final MaritalStatusRepository maritalStatusRepository;
+    private final DocumentTypeRepository documentTypeRepository;
     private final ProfessionRepository professionRepository;
     private final ScholarityRepository scholarityRepository;
     private final PatientRepository patientRepository;
@@ -44,21 +50,26 @@ public class PatientService {
     @Transactional
     public Patient create(PatientDTO dto) {
         Patient entity = load(dto);
-        return patientRepository.save(entity);
+        entity = patientRepository.save(entity);
+        saveDocuments(dto.getDocuments(), entity);
+        return entity;
     }
 
     private Patient load(PatientDTO dto) {
         return load(dto, new Patient());
     }
 
+    @Transactional
     public Patient update(PatientDTO dto) {
-        Patient entity=load(dto,dto.getId());
-        return patientRepository.save(entity);
+        Patient entity = load(dto, dto.getId());
+        entity = patientRepository.save(entity);
+        saveDocuments(dto.getDocuments(), entity);
+        return entity;
     }
 
-    private Patient load(PatientDTO dto, Long patientId){
-        Patient entity=patientRepository.findById(patientId).orElseThrow(()->new NotFoundAlertException("A patient with this id was not found", "patientManagement", "notfound"));
-        return load(dto,entity);
+    private Patient load(PatientDTO dto, Long patientId) {
+        Patient entity = patientRepository.findById(patientId).orElseThrow(() -> new NotFoundAlertException("A patient with this id was not found", "patientManagement", "notfound"));
+        return load(dto, entity);
     }
 
     private Patient load(PatientDTO dto, Patient entity) {
@@ -81,6 +92,28 @@ public class PatientService {
         return entity;
     }
 
+    private void saveDocuments(Map<Long, String> documents, Patient entity) {
+        List<PatientDocument> toRemove = new ArrayList<>();
+        for (PatientDocument patientDocument : entity.getDocuments()) {
+            if (documents.get(patientDocument.getDocument().getId()) == null) {
+                patientDocumentRepository.delete(patientDocument);
+                toRemove.add(patientDocument);
+            }
+        }
+        entity.getDocuments().removeAll(toRemove);
+        for (Map.Entry<Long, String> entry : documents.entrySet()) {
+            PatientDocument patientDocument = entity.getDocuments().stream().filter(d -> d.getDocument().getId().equals(entry.getKey()) && d.getValue().equalsIgnoreCase(entry.getValue())).findFirst().orElse(null);
+            if (patientDocument == null) {
+                patientDocument = new PatientDocument();
+                patientDocument.setPatient(entity);
+                patientDocument.setDocument(documentTypeRepository.findById(entry.getKey()).orElse(null));
+                entity.getDocuments().add(patientDocument);
+            }
+            patientDocument.setValue(entry.getValue());
+        }
+        patientDocumentRepository.saveAll(entity.getDocuments());
+    }
+
     private City findCity(Long id) {
         if (id == null)
             return null;
@@ -101,13 +134,13 @@ public class PatientService {
 
     @Transactional(readOnly = true)
     public Page<PatientDTO> getAll(String filter, Pageable pageable) {
-        filter= QueryUtils.prepareLikeParameter(filter);
-        return patientRepository.findAllByFilter(filter,pageable).map(PatientConverter::convert);
+        filter = QueryUtils.prepareLikeParameter(filter);
+        return patientRepository.findAllByFilter(filter, pageable).map(PatientConverter::convert);
     }
 
     @Transactional(readOnly = true)
     public PatientDTO getPatientById(Long id) {
-        return patientRepository.findById(id).map(PatientConverter::convert).orElseThrow(()->new NotFoundAlertException("A patient with this id was not found", "patientManagement", "notfound"));
+        return patientRepository.findById(id).map(PatientConverter::convert).orElseThrow(() -> new NotFoundAlertException("A patient with this id was not found", "patientManagement", "notfound"));
     }
 
     public void delete(Long id) {

@@ -31,6 +31,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -44,6 +45,8 @@ public class PatientDTO {
     private String name;
 
     private Instant receptionDate;
+
+    private Map<Long, String> documents;
 
     @NotNull
     @Past

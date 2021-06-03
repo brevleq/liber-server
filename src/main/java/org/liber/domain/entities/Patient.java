@@ -124,6 +124,6 @@ public class Patient implements Serializable {
     @JoinColumn(name = "address_city_id")
     private City addressCity;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE})
     private Set<PatientDocument> documents = new HashSet<PatientDocument>();
 }

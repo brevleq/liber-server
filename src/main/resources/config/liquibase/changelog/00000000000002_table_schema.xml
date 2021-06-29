@@ -525,4 +525,54 @@
         <modifyDataType tableName="patient" columnName="sex" newDataType="varchar(15)"/>
     </changeSet>
 
+    <changeSet id="00000000000002-7" author="brevleq">
+        <createTable tableName="report">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="type" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="reset_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="report"
+                                 baseColumnNames="patient_id"
+                                 constraintName="report_patient_fk"
+                                 referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="report"
+                                 baseColumnNames="author_id"
+                                 constraintName="report_author_fk"
+                                 referencedTableName="jhi_user"
+                                 referencedColumnNames="id"/>
+
+        <createSequence sequenceName="report_id_seq" incrementBy="1" startValue="1"/>
+
+    </changeSet>
+
 </databaseChangeLog>

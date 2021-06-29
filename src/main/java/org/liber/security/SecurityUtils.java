@@ -25,6 +25,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -90,10 +91,10 @@ public final class SecurityUtils {
      * @param authority the authority to check.
      * @return true if the current user has the authority, false otherwise.
      */
-    public static boolean isCurrentUserInRole(String authority) {
+    public static boolean isCurrentUserInRole(String... authority) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication != null &&
-            getAuthorities(authentication).anyMatch(authority::equals);
+            getAuthorities(authentication).anyMatch(e -> Arrays.asList(authority).contains(e));
     }
 
     private static Stream<String> getAuthorities(Authentication authentication) {

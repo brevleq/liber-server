@@ -51,7 +51,7 @@ public class ReportService {
 
     @Transactional
     public Report create(ReportDTO dto) {
-        if (dto != null)
+        if (dto.getId() != null)
             throw new BadRequestAlertException("It can't create a report that already has an id", "report", "hasId");
         return loadAndSave(new Report(), dto);
     }

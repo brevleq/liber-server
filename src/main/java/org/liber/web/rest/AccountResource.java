@@ -29,8 +29,8 @@ import org.liber.security.SecurityUtils;
 import org.liber.service.UserService;
 import org.liber.service.dto.PasswordChangeDTO;
 import org.liber.service.dto.UserDTO;
-import org.liber.web.rest.errors.EmailAlreadyUsedException;
-import org.liber.web.rest.errors.InvalidPasswordException;
+import org.liber.service.errors.EmailAlreadyUsedException;
+import org.liber.service.errors.InvalidPasswordException;
 import org.liber.web.rest.vm.ManagedUserVM;
 import org.springframework.web.bind.annotation.*;
 

@@ -17,16 +17,36 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package org.liber.web.rest.errors;
+package org.liber.service.errors;
 
-import org.zalando.problem.AbstractThrowableProblem;
-import org.zalando.problem.Status;
+import java.io.Serializable;
 
-public class InvalidPasswordException extends AbstractThrowableProblem {
+public class FieldErrorVM implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public InvalidPasswordException() {
-        super(ErrorConstants.INVALID_PASSWORD_TYPE, "Incorrect password", Status.BAD_REQUEST);
+    private final String objectName;
+
+    private final String field;
+
+    private final String message;
+
+    public FieldErrorVM(String dto, String field, String message) {
+        this.objectName = dto;
+        this.field = field;
+        this.message = message;
     }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
 }

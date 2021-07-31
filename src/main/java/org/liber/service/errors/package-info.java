@@ -17,13 +17,9 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package org.liber.web.rest.errors;
-
-public class EmailAlreadyUsedException extends BadRequestAlertException {
-
-    private static final long serialVersionUID = 1L;
-
-    public EmailAlreadyUsedException() {
-        super(ErrorConstants.EMAIL_ALREADY_USED_TYPE, "Email is already in use!", "userManagement", "emailexists");
-    }
-}
+/**
+ * Specific errors used with Zalando's "problem-spring-web" library.
+ *
+ * More information on https://github.com/zalando/problem-spring-web
+ */
+package org.liber.service.errors;

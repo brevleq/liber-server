@@ -19,16 +19,48 @@
 
 package org.liber.utils;
 
+import org.owasp.html.AttributePolicy;
+import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
 
+
 public class SanitizeUtils {
+    private static final AttributePolicy INTEGER = new AttributePolicy() {
+        public String apply(
+            String elementName, String attributeName, String value) {
+            int n = value.length();
+            if (n == 0) {
+                return null;
+            }
+            for (int i = 0; i < n; ++i) {
+                char ch = value.charAt(i);
+                if (ch == '.') {
+                    if (i == 0) {
+                        return null;
+                    }
+                    return value.substring(0, i);  // truncate to integer.
+                } else if (!('0' <= ch && ch <= '9')) {
+                    return null;
+                }
+            }
+            return value;
+        }
+    };
+
+    //    CHANGE IN DEFAULT POLICY TO ALLOW "DATA"
+    private static final PolicyFactory IMAGES = new HtmlPolicyBuilder()
+        .allowUrlProtocols("http", "https", "data").allowElements("img")
+        .allowAttributes("alt", "src").onElements("img")
+        .allowAttributes("border", "height", "width").matching(INTEGER)
+        .onElements("img")
+        .toFactory();
 
     public static final String sanitizeContent(String original) {
         PolicyFactory policy = Sanitizers.FORMATTING
             .and(Sanitizers.LINKS)
             .and(Sanitizers.BLOCKS)
-            .and(Sanitizers.IMAGES)
+            .and(IMAGES)
             .and(Sanitizers.STYLES)
             .and(Sanitizers.TABLES);
         return policy.sanitize(original);

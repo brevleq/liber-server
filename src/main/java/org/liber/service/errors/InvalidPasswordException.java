@@ -17,13 +17,16 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package org.liber.web.rest.errors;
+package org.liber.service.errors;
 
-public class LoginAlreadyUsedException extends BadRequestAlertException {
+import org.zalando.problem.AbstractThrowableProblem;
+import org.zalando.problem.Status;
+
+public class InvalidPasswordException extends AbstractThrowableProblem {
 
     private static final long serialVersionUID = 1L;
 
-    public LoginAlreadyUsedException() {
-        super(ErrorConstants.LOGIN_ALREADY_USED_TYPE, "Login name already used!", "userManagement", "userexists");
+    public InvalidPasswordException() {
+        super(ErrorConstants.INVALID_PASSWORD_TYPE, "Incorrect password", Status.BAD_REQUEST);
     }
 }

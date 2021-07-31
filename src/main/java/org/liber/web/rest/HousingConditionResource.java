@@ -27,7 +27,7 @@ import org.liber.domain.entities.HousingCondition;
 import org.liber.security.AuthoritiesConstants;
 import org.liber.service.HousingConditionService;
 import org.liber.service.dto.CommonDTO;
-import org.liber.web.rest.errors.BadRequestAlertException;
+import org.liber.service.errors.BadRequestAlertException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;

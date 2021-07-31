@@ -17,7 +17,7 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package org.liber.web.rest.errors;
+package org.liber.service.errors;
 
 import java.net.URI;
 

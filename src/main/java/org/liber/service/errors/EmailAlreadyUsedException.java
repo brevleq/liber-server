@@ -17,36 +17,13 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package org.liber.web.rest.errors;
+package org.liber.service.errors;
 
-import java.io.Serializable;
-
-public class FieldErrorVM implements Serializable {
+public class EmailAlreadyUsedException extends BadRequestAlertException {
 
     private static final long serialVersionUID = 1L;
 
-    private final String objectName;
-
-    private final String field;
-
-    private final String message;
-
-    public FieldErrorVM(String dto, String field, String message) {
-        this.objectName = dto;
-        this.field = field;
-        this.message = message;
+    public EmailAlreadyUsedException() {
+        super(ErrorConstants.EMAIL_ALREADY_USED_TYPE, "Email is already in use!", "userManagement", "emailexists");
     }
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public String getField() {
-        return field;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
 }

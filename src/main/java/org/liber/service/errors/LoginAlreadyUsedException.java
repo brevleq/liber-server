@@ -17,9 +17,13 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-/**
- * Specific errors used with Zalando's "problem-spring-web" library.
- *
- * More information on https://github.com/zalando/problem-spring-web
- */
-package org.liber.web.rest.errors;
+package org.liber.service.errors;
+
+public class LoginAlreadyUsedException extends BadRequestAlertException {
+
+    private static final long serialVersionUID = 1L;
+
+    public LoginAlreadyUsedException() {
+        super(ErrorConstants.LOGIN_ALREADY_USED_TYPE, "Login name already used!", "userManagement", "userexists");
+    }
+}

@@ -27,7 +27,7 @@ import org.liber.domain.entities.OtherInstitution;
 import org.liber.security.AuthoritiesConstants;
 import org.liber.service.OtherInstitutionService;
 import org.liber.service.dto.CommonDTO;
-import org.liber.web.rest.errors.BadRequestAlertException;
+import org.liber.service.errors.BadRequestAlertException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;

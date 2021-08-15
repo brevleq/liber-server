@@ -24,9 +24,9 @@
 
     <groupId>org.liber</groupId>
     <artifactId>liber-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
-    <name>Liber</name>
+    <name>Liber Server</name>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
@@ -605,7 +605,7 @@
                             <image>adoptopenjdk:11-jre-hotspot</image>
                         </from>
                         <to>
-                            <image>liber:latest</image>
+                            <image>liber-server:${version}</image>
                         </to>
                         <container>
                             <entrypoint>

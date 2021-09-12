@@ -46,6 +46,7 @@ public class PatientService {
     private final ScholarityRepository scholarityRepository;
     private final PatientRepository patientRepository;
     private final CityRepository cityRepository;
+    private final ReportService reportService;
 
     @Transactional
     public Patient create(PatientDTO dto) {
@@ -144,6 +145,7 @@ public class PatientService {
     }
 
     public void delete(Long id) {
+        reportService.deleteAllByPatientId(id);
         patientRepository.deleteById(id);
     }
 }

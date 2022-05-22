@@ -19,18 +19,16 @@
 
 package org.liber.domain.repository;
 
-import org.liber.domain.entities.Patient;
+import org.liber.domain.entities.Hospitalization;
+import org.liber.domain.entities.HospitalizationPK;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface PatientRepository extends JpaRepository<Patient, Long> {
+public interface HospitalizationRepository extends JpaRepository<Hospitalization, HospitalizationPK> {
 
-    @Query("select p from Patient p where lower(unaccent(cast(p.name as string))) like lower(unaccent(cast(:filter as string)))")
-    Page<Patient> findAllByFilter(@Param("filter") String filter, Pageable pageable);
-
-    @Query("select p from Hospitalization h join h.patient p where h.endDate is null and lower(unaccent(cast(p.name as string))) like lower(unaccent(cast(:filter as string)))")
-    Page<Patient> findAllInHospitalizationByFilter(@Param("filter") String filter, Pageable pageable);
+    @Query("select h from Hospitalization h where h.patient.id=:patientId")
+    Page<Hospitalization> findAllByPatientId(@Param("patientId") Long patientId, Pageable pageable);
 }

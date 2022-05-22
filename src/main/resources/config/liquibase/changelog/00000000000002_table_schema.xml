@@ -575,4 +575,23 @@
 
     </changeSet>
 
+    <changeSet id="00000000000002-8" author="brevleq">
+        <createTable tableName="hospitalization">
+            <column name="patient_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="start_date" type="timestamp">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="end_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="00000000000002-9" author="brevleq">
+        <addForeignKeyConstraint baseTableName="hospitalization"
+                                 baseColumnNames="patient_id"
+                                 constraintName="hospitalization_patient_fk"
+                                 referencedTableName="patient"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
 </databaseChangeLog>

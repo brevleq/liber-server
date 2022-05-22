@@ -75,13 +75,13 @@ public class PatientResource {
     }
 
     /**
-     * {@code POST  /patients}  : Updates an existing patient.
+     * {@code PUT  /patients}  : Updates an existing patient.
      * <p>
      * Updates an existing patient.
      *
      * @param dto the patient to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated patient, or with status {@code 404 (Not Found)} if did not found patient by id.
-     * @throws URISyntaxException       if the Location URI syntax is incorrect.
+     * @throws URISyntaxException     if the Location URI syntax is incorrect.
      * @throws NotFoundAlertException {@code 404 (Not Found)} if did not found a patient with dto's id.
      */
     @PutMapping("/patients")

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+ * Copyright (c) 2020 - 2022 Hudson Orsine Assumpção.
  *
  * This file is part of Liber Server.
  *
@@ -27,8 +27,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
+
 public interface HospitalizationRepository extends JpaRepository<Hospitalization, HospitalizationPK> {
 
     @Query("select h from Hospitalization h where h.patient.id=:patientId")
     Page<Hospitalization> findAllByPatientId(@Param("patientId") Long patientId, Pageable pageable);
+
+    @Query("select h from Hospitalization h where (lower(h.patient.name) like lower(unaccent(cast(:patientName as string)))) and (cast(:startDate as timestamp) is null or h.startDate>=:startDate) and ((cast(:endDate as timestamp) is not null and h.endDate<=:endDate) or (cast(:endDate as timestamp) is null and h.endDate is null))")
+    Page<Hospitalization> findAllByFilter(@Param("patientName") String patientName, @Param("startDate") Instant startDate, @Param("endDate") Instant endDate, Pageable pageable);
+
+    /**/
 }

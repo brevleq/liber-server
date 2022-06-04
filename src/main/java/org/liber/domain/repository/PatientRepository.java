@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+ * Copyright (c) 2020 - 2022 Hudson Orsine Assumpção.
  *
  * This file is part of Liber Server.
  *
@@ -30,7 +30,4 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     @Query("select p from Patient p where lower(unaccent(cast(p.name as string))) like lower(unaccent(cast(:filter as string)))")
     Page<Patient> findAllByFilter(@Param("filter") String filter, Pageable pageable);
-
-    @Query("select p from Hospitalization h join h.patient p where h.endDate is null and lower(unaccent(cast(p.name as string))) like lower(unaccent(cast(:filter as string)))")
-    Page<Patient> findAllInHospitalizationByFilter(@Param("filter") String filter, Pageable pageable);
 }

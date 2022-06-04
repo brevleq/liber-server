@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+ * Copyright (c) 2020 - 2022 Hudson Orsine Assumpção.
  *
  * This file is part of Liber Server.
  *
@@ -39,6 +39,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -89,14 +90,31 @@ public class HospitalizationResource {
     }
 
     /**
-     * {@code GET /hospitalizations} : get all hospitalizations for a patient.
+     * {@code GET /hospitalizations} : get all hospitalizations by filter.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all hospitalizations for a patient.
+     */
+    @GetMapping("/hospitalizations")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\",\"" + AuthoritiesConstants.PSYCHIATRIST + "\",\"" + AuthoritiesConstants.DENTIST + "\")")
+    public ResponseEntity<List<HospitalizationDTO>> getAllHospitalizations(@RequestParam(required = false) String patientName,
+                                                                           @RequestParam(required = false) Instant startDate,
+                                                                           @RequestParam(required = false) Instant endDate,
+                                                                           Pageable pageable) {
+        final Page<HospitalizationDTO> page = hospitalizationService.getAll(patientName, startDate, endDate, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * {@code GET /hospitalizations/:patientId} : get all hospitalizations for a patient.
      *
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all hospitalizations for a patient.
      */
     @GetMapping("/hospitalizations/{patientId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\",\"" + AuthoritiesConstants.PSYCHIATRIST + "\",\"" + AuthoritiesConstants.DENTIST + "\")")
-    public ResponseEntity<List<HospitalizationDTO>> getAllHospitalizationsForHospitalization(@PathVariable Long patientId, Pageable pageable) {
+    public ResponseEntity<List<HospitalizationDTO>> getAllHospitalizationsForPatient(@PathVariable Long patientId, Pageable pageable) {
         final Page<HospitalizationDTO> page = hospitalizationService.getAll(patientId, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

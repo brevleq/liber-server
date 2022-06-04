@@ -117,4 +117,9 @@ public class ReportService {
             throw new UnauthorizedAlertException("Unauthorized", "report", "unauthorized");
         reportRepository.delete(entity);
     }
+
+    @Transactional
+    public void deleteAllByPatientId(Long patientId) {
+        reportRepository.deleteByPatientId(patientId);
+    }
 }

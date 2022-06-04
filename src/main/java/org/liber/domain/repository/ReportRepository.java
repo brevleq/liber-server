@@ -23,8 +23,15 @@ import org.liber.domain.entities.Report;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
     Page<Report> findAllByPatientId(Long patientId, Pageable pageable);
+
+    @Modifying
+    @Query("delete from Report r where r.patient.id=:patientId")
+    void deleteByPatientId(@Param("patientId") Long patientId);
 }

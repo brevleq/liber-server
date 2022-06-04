@@ -24,9 +24,9 @@
 
     <groupId>org.liber</groupId>
     <artifactId>liber-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
-    <name>Liber</name>
+    <name>Liber Server</name>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
@@ -70,7 +70,7 @@
         <javassist.version>3.24.0-GA</javassist.version>
         <!-- The liquibase version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
-        <liquibase.version>3.9.0</liquibase.version>
+        <liquibase.version>4.8.0</liquibase.version>
         <liquibase-hibernate5.version>3.8</liquibase-hibernate5.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <jaxb-runtime.version>2.3.3</jaxb-runtime.version>
@@ -105,7 +105,7 @@
         <junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
         <junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
         <!-- jhipster-needle-maven-property -->
-        <owasp-sanitizer>20200713.1</owasp-sanitizer>
+        <owasp-sanitizer>20211018.2</owasp-sanitizer>
     </properties>
 
     <dependencyManagement>
@@ -605,7 +605,7 @@
                             <image>adoptopenjdk:11-jre-hotspot</image>
                         </from>
                         <to>
-                            <image>liber:latest</image>
+                            <image>brevleq/liber-server:${version}</image>
                         </to>
                         <container>
                             <entrypoint>

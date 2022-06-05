@@ -21,18 +21,28 @@ package org.liber.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-import java.time.Instant;
+import javax.validation.constraints.PastOrPresent;
+import java.time.LocalDate;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class HospitalizationDTO {
 
     @NotNull
-    private final Long patientId;
+    private Long patientId;
     @NotNull
-    private final Instant startDate;
-    private final Instant endDate;
-    private final String name;
+    @PastOrPresent
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate startDate;
+    @PastOrPresent
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate endDate;
+    private String name;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+ * Copyright (c) 2020 - 2022 Hudson Orsine Assumpção.
  *
  * This file is part of Liber Server.
  *
@@ -21,18 +21,20 @@ package org.liber.domain.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDate;
 
 /**
  * A hospitalization.
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class HospitalizationPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long patient;
-    private Instant startDate;
+    private LocalDate startDate;
 }

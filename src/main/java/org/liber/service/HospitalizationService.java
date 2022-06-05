@@ -53,6 +53,8 @@ public class HospitalizationService {
             throw new UnauthorizedAlertException("Unauthorized", "hospitalization", "unauthorized");
         Patient patient = patientRepository.findById(dto.getPatientId())
             .orElseThrow(() -> new BadRequestAlertException("Patient not found", "hospitalization", "patientNotFound"));
+        if (hospitalizationRepository.findCurrentByPatientId(patient.getId()) != null)
+            throw new BadRequestAlertException("Patient already hospitalized", "hospitalization", "alreadyHospitalized");
         Hospitalization hospitalization = new Hospitalization();
         hospitalization.setPatient(patient);
         hospitalization.setStartDate(dto.getStartDate());
@@ -96,5 +98,9 @@ public class HospitalizationService {
         if (!found.isPresent())
             throw new NotFoundAlertException("No hospitalization found with provided patient ID and start date", "hospitalization", "hospitalizationNotFound");
         return found.get();
+    }
+
+    public boolean isHospitalized(Long patientId) {
+        return hospitalizationRepository.findCurrentByPatientId(patientId) != null;
     }
 }

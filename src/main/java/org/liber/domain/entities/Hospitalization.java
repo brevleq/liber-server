@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+ * Copyright (c) 2020 - 2022 Hudson Orsine Assumpção.
  *
  * This file is part of Liber Server.
  *
@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDate;
 
 /**
  * A hospitalization.
@@ -46,9 +46,9 @@ public class Hospitalization implements Serializable {
 
     @Id
     @Column(name = "start_date", updatable = false)
-    private Instant startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private Instant endDate;
+    private LocalDate endDate;
 
 }

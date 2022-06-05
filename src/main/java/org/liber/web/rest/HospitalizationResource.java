@@ -40,7 +40,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * REST controller for managing hospitalization.
@@ -64,7 +66,7 @@ public class HospitalizationResource {
      * @throws BadRequestAlertException {@code 400 (Bad Request)} if already exists.
      */
     @PostMapping("/hospitalizations")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\")")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\")")
     public ResponseEntity<HospitalizationDTO> createHospitalization(@Valid @RequestBody HospitalizationDTO dto) throws URISyntaxException {
         log.debug("REST request to save hospitalization : {}", dto);
         hospitalizationService.create(dto);
@@ -82,7 +84,7 @@ public class HospitalizationResource {
      * @throws NotFoundAlertException {@code 404 (Not Found)} if did not find the hospitalization.
      */
     @PutMapping("/hospitalizations")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\")")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\")")
     public ResponseEntity<HospitalizationDTO> finishHospitalization(@Valid @RequestBody HospitalizationDTO dto) {
         log.debug("REST request to finish a hospitalization : {}", dto);
         hospitalizationService.finish(dto);
@@ -121,13 +123,27 @@ public class HospitalizationResource {
     }
 
     /**
+     * {@code GET /hospitalizations/:patientId/is-hospitalized} : get true or false if patient is hospitalized.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body true or false if patient is hospitalized.
+     */
+    @GetMapping("/hospitalizations/{patientId}/is-hospitalized")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\",\"" + AuthoritiesConstants.PSYCHIATRIST + "\",\"" + AuthoritiesConstants.DENTIST + "\")")
+    public ResponseEntity<Map<String, Boolean>> getIsHospitalized(@PathVariable Long patientId) {
+        boolean result = hospitalizationService.isHospitalized(patientId);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("result", result);
+        return ResponseEntity.ok(map);
+    }
+
+    /**
      * {@code DELETE /hospitalizations} : delete a hospitalization.
      *
      * @param dto the hospitalization data to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/hospitalizations")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\")")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\")")
     public ResponseEntity<Void> deleteHospitalization(@Valid @RequestBody HospitalizationDTO dto) {
         log.debug("REST request to delete hospitalization: {}", dto);
         hospitalizationService.delete(dto);

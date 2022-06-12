@@ -28,6 +28,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
+import java.util.Optional;
 
 public interface HospitalizationRepository extends JpaRepository<Hospitalization, HospitalizationPK> {
 
@@ -38,5 +39,5 @@ public interface HospitalizationRepository extends JpaRepository<Hospitalization
     Page<Hospitalization> findAllByFilter(@Param("patientName") String patientName, @Param("startDate") Instant startDate, @Param("endDate") Instant endDate, Pageable pageable);
 
     @Query("select h from Hospitalization h where h.patient.id=:patientId and h.endDate is null")
-    Hospitalization findCurrentByPatientId(@Param("patientId") Long patientId);
+    Optional<Hospitalization> findCurrentByPatientId(@Param("patientId") Long patientId);
 }

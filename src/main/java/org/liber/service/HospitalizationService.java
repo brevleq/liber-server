@@ -112,7 +112,9 @@ public class HospitalizationService {
         return found.get();
     }
 
-    public boolean isHospitalized(Long patientId) {
-        return hospitalizationRepository.findCurrentByPatientId(patientId) != null;
+    public HospitalizationDTO findCurrent(Long patientId) {
+        return hospitalizationRepository.findCurrentByPatientId(patientId)
+            .map(HospitalizationConverter::convert)
+            .orElse(null);
     }
 }

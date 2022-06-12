@@ -41,9 +41,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * REST controller for managing hospitalization.
@@ -124,17 +122,15 @@ public class HospitalizationResource {
     }
 
     /**
-     * {@code GET /hospitalizations/:patientId/is-hospitalized} : get true or false if patient is hospitalized.
+     * {@code GET /hospitalizations/:patientId/is-hospitalized} : get the current hospitalization for patient`s id.
      *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body true or false if patient is hospitalized.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with current hospitalization or null.
      */
-    @GetMapping("/hospitalizations/{patientId}/is-hospitalized")
+    @GetMapping("/hospitalizations/{patientId}/current")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\",\"" + AuthoritiesConstants.PSYCHIATRIST + "\",\"" + AuthoritiesConstants.DENTIST + "\")")
-    public ResponseEntity<Map<String, Boolean>> getIsHospitalized(@PathVariable Long patientId) {
-        boolean result = hospitalizationService.isHospitalized(patientId);
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("result", result);
-        return ResponseEntity.ok(map);
+    public ResponseEntity<HospitalizationDTO> getCurrentHospitalized(@PathVariable Long patientId) {
+        HospitalizationDTO result = hospitalizationService.findCurrent(patientId);
+        return ResponseEntity.ok(result);
     }
 
     /**

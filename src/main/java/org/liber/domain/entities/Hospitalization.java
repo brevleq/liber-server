@@ -51,4 +51,8 @@ public class Hospitalization implements Serializable {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    @ManyToOne
+    @JoinColumn(name = "release_reason_id")
+    private ReleaseReason releaseReason;
+
 }

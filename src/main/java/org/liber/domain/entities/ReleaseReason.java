@@ -17,37 +17,43 @@
  * along with Liber Server.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package org.liber.service.dto;
+package org.liber.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import java.time.LocalDate;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-@AllArgsConstructor
-@NoArgsConstructor
+/**
+ * A release reason.
+ */
 @Data
-@Builder
-public class HospitalizationDTO {
+@NoArgsConstructor
+@Entity
+@Table(name = "release_reason")
+public class ReleaseReason implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "release_reason_id_seq")
+    @SequenceGenerator(name = "release_reason_id_seq", sequenceName = "release_reason_id_seq", allocationSize = 1)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     @NotNull
-    private Long patientId;
-
-    @NotNull
-    @PastOrPresent
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate startDate;
-
-    @PastOrPresent
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate endDate;
-
+    @Size(max = 50)
+    @Column(name = "name", length = 50, nullable = false, unique = true)
     private String name;
-    private Long releaseReasonId;
-    private String releaseReasonName;
+
+    @PrePersist
+    @PreUpdate
+    private void toLowerCase() {
+        this.name = this.name.toLowerCase();
+    }
+
 }

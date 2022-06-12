@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+  ~ Copyright (c) 2020 - 2022 Hudson Orsine Assumpção.
   ~
   ~ This file is part of Liber Server.
   ~
@@ -592,6 +592,26 @@
                                  constraintName="hospitalization_patient_fk"
                                  referencedTableName="patient"
                                  referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="00000000000002-10" author="brevleq">
+        <createTable tableName="release_reason">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+        <addColumn tableName="hospitalization">
+            <column name="release_reason_id" type="bigint"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="hospitalization"
+                                 baseColumnNames="release_reason_id"
+                                 constraintName="hospitalization_release_reason_fk"
+                                 referencedTableName="release_reason"
+                                 referencedColumnNames="id"/>
+        <createSequence sequenceName="release_reason_id_seq" incrementBy="1" startValue="1"/>
     </changeSet>
 
 </databaseChangeLog>

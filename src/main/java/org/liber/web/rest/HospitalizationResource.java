@@ -40,6 +40,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,14 +140,16 @@ public class HospitalizationResource {
     /**
      * {@code DELETE /hospitalizations} : delete a hospitalization.
      *
-     * @param dto the hospitalization data to delete.
+     * @param patientId the patient`s id.
+     * @param startDate the initial date of hospitalization
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/hospitalizations")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\")")
-    public ResponseEntity<Void> deleteHospitalization(@Valid @RequestBody HospitalizationDTO dto) {
-        log.debug("REST request to delete hospitalization: {}", dto);
-        hospitalizationService.delete(dto);
+    public ResponseEntity<Void> deleteHospitalization(@RequestParam Long patientId,
+                                                      @RequestParam LocalDate startDate) {
+        log.debug("REST request to delete hospitalization");
+        hospitalizationService.delete(patientId, startDate);
         return ResponseEntity.noContent().build();
     }
 }

@@ -58,7 +58,7 @@ public class HospitalizationService {
             throw new UnauthorizedAlertException("Unauthorized", "hospitalization", "unauthorized");
         Patient patient = patientRepository.findById(dto.getPatientId())
             .orElseThrow(() -> new BadRequestAlertException("Patient not found", "hospitalization", "patientNotFound"));
-        if (hospitalizationRepository.findCurrentByPatientId(patient.getId()) != null)
+        if (hospitalizationRepository.findCurrentByPatientId(patient.getId()).isPresent())
             throw new BadRequestAlertException("Patient already hospitalized", "hospitalization", "alreadyHospitalized");
         Hospitalization hospitalization = new Hospitalization();
         hospitalization.setPatient(patient);
@@ -83,15 +83,9 @@ public class HospitalizationService {
     }
 
     @Transactional(readOnly = true)
-    public Page<HospitalizationDTO> getAll(Long patientId, Pageable pageable) {
-        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.DENTIST, AuthoritiesConstants.PSYCHIATRIST, AuthoritiesConstants.PSYCHOLOGIST, AuthoritiesConstants.SOCIAL_ASSISTANT))
-            throw new UnauthorizedAlertException("Unauthorized", "hospitalization", "unauthorized");
-        return hospitalizationRepository.findAllByPatientId(patientId, pageable).map(HospitalizationConverter::convert);
-    }
-
-    public Page<HospitalizationDTO> getAll(String patientName, Instant startDate, Instant endDate, Pageable pageable) {
+    public Page<HospitalizationDTO> getAll(Long patientId, String patientName, Instant startDate, Pageable pageable) {
         patientName = QueryUtils.prepareLikeParameter(patientName);
-        return hospitalizationRepository.findAllByFilter(patientName, startDate, endDate, pageable).map(HospitalizationConverter::convert);
+        return hospitalizationRepository.findAllByFilter(patientId, patientName, startDate, pageable).map(HospitalizationConverter::convert);
     }
 
     @Transactional

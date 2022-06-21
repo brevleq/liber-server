@@ -98,25 +98,11 @@ public class HospitalizationResource {
      */
     @GetMapping("/hospitalizations")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\",\"" + AuthoritiesConstants.PSYCHIATRIST + "\",\"" + AuthoritiesConstants.DENTIST + "\")")
-    public ResponseEntity<List<HospitalizationDTO>> getAllHospitalizations(@RequestParam(required = false) String patientName,
+    public ResponseEntity<List<HospitalizationDTO>> getAllHospitalizations(@RequestParam(required = false) String filter,
                                                                            @RequestParam(required = false) Instant startDate,
-                                                                           @RequestParam(required = false) Instant endDate,
+                                                                           @RequestParam(required = false) Long patientId,
                                                                            Pageable pageable) {
-        final Page<HospitalizationDTO> page = hospitalizationService.getAll(patientName, startDate, endDate, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-    /**
-     * {@code GET /hospitalizations/:patientId} : get all hospitalizations for a patient.
-     *
-     * @param pageable the pagination information.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all hospitalizations for a patient.
-     */
-    @GetMapping("/hospitalizations/{patientId}")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.SOCIAL_ASSISTANT + "\",\"" + AuthoritiesConstants.PSYCHOLOGIST + "\",\"" + AuthoritiesConstants.PSYCHIATRIST + "\",\"" + AuthoritiesConstants.DENTIST + "\")")
-    public ResponseEntity<List<HospitalizationDTO>> getAllHospitalizationsForPatient(@PathVariable Long patientId, Pageable pageable) {
-        final Page<HospitalizationDTO> page = hospitalizationService.getAll(patientId, pageable);
+        final Page<HospitalizationDTO> page = hospitalizationService.getAll(patientId, filter, startDate, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

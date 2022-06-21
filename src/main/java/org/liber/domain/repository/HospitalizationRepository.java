@@ -35,8 +35,8 @@ public interface HospitalizationRepository extends JpaRepository<Hospitalization
     @Query("select h from Hospitalization h where h.patient.id=:patientId")
     Page<Hospitalization> findAllByPatientId(@Param("patientId") Long patientId, Pageable pageable);
 
-    @Query("select h from Hospitalization h where (lower(h.patient.name) like lower(unaccent(cast(:patientName as string)))) and (cast(:startDate as timestamp) is null or h.startDate>=:startDate) and ((cast(:endDate as timestamp) is not null and h.endDate<=:endDate) or (cast(:endDate as timestamp) is null and h.endDate is null))")
-    Page<Hospitalization> findAllByFilter(@Param("patientName") String patientName, @Param("startDate") Instant startDate, @Param("endDate") Instant endDate, Pageable pageable);
+    @Query("select h from Hospitalization h where (:patientId is null or h.patient.id=:patientId) and (lower(h.patient.name) like lower(unaccent(cast(:patientName as string)))) and (cast(:startDate as timestamp) is null or h.startDate>=:startDate)")
+    Page<Hospitalization> findAllByFilter(@Param("patientId") Long patientId, @Param("patientName") String patientName, @Param("startDate") Instant startDate, Pageable pageable);
 
     @Query("select h from Hospitalization h where h.patient.id=:patientId and h.endDate is null")
     Optional<Hospitalization> findCurrentByPatientId(@Param("patientId") Long patientId);

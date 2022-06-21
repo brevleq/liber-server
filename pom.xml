@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2020 - 2021 Hudson Orsine Assumpção.
+  ~ Copyright (c) 2020 - 2022 Hudson Orsine Assumpção.
   ~
   ~ This file is part of Liber Server.
   ~
@@ -24,7 +24,7 @@
 
     <groupId>org.liber</groupId>
     <artifactId>liber-server</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
     <name>Liber Server</name>
 
